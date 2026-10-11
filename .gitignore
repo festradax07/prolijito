@@ -28,6 +28,7 @@ dist/
 
 # Herramientas
 .ruff_cache/
+.import_linter_cache/
 .mypy_cache/
 .pytest_cache/
 .coverage
@@ -37,3 +38,6 @@ htmlcov/
 .vscode/
 .idea/
 .DS_Store
+
+# PDFs reales para pruebas locales (nunca al repo)
+docs/doc_test/

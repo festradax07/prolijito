@@ -1,0 +1,658 @@
+{
+ "archivo": "entrega.pdf",
+ "paginas": 19,
+ "fuentes": {
+  "cuerpo": {
+   "familia": "Times New Roman",
+   "size": 12.0,
+   "pct": 58.2
+  },
+  "fuente_ok": true,
+  "fuentes_permitidas": [
+   "Arial",
+   "Libertinus",
+   "Times New Roman"
+  ],
+  "tamano_ok": true,
+  "otras": [
+   {
+    "familia": "Times New Roman",
+    "size": 10.0,
+    "pct": 27.0
+   },
+   {
+    "familia": "Arial",
+    "size": 11.0,
+    "pct": 9.0
+   },
+   {
+    "familia": "CourierNew",
+    "size": 10.5,
+    "pct": 1.8
+   },
+   {
+    "familia": "Times New Roman",
+    "size": 14.0,
+    "pct": 1.3
+   }
+  ],
+  "familias_no_permitidas": [
+   "CourierNew"
+  ]
+ },
+ "pdfinfo": {
+  "Creator": "Google Docs",
+  "Producer": "Skia/PDF m157 Google Docs Renderer",
+  "CreationDate": "",
+  "ModDate": "",
+  "Title": "Informe de prueba",
+  "Author": ""
+ },
+ "interlineado": {
+  "salto_pt": 20.7,
+  "ratio": 1.72,
+  "clase": "1,5",
+  "nota": "",
+  "distribucion": {
+   "1,5": 92,
+   "doble": 6,
+   "simple": 2
+  },
+  "paginas_fuera": []
+ },
+ "justificado": {
+  "lineas_evaluadas": 150,
+  "pct_borde_derecho_alineado": 76,
+  "pct_con_espacios_dobles": 51,
+  "justificado": "sí",
+  "paginas_dudosas": [
+   9,
+   10,
+   11,
+   18
+  ]
+ },
+ "estructura": {
+  "caratula": {
+   "pag1_lineas": [
+    "Taller de Proyecto II",
+    "Informe de Avance - 01/01/2026",
+    "Universidad de ejemplo",
+    "Proyecto de ejemplo",
+    "Autores",
+    "Persona A - 00000/0",
+    "Persona B - 00000/0",
+    "Persona C - 00000/0",
+    "Materia de ejemplo",
+    "Cuatrimestre de ejemplo"
+   ],
+   "pag1_parece_caratula": true
+  },
+  "indice": {
+   "presente": true,
+   "paginas": [
+    2
+   ],
+   "entradas": 25
+  },
+  "indice_figuras": {
+   "presente": false,
+   "paginas": []
+  },
+  "indice_tablas": {
+   "presente": false,
+   "paginas": []
+  },
+  "bibliografia": {
+   "presente": false,
+   "paginas": []
+  },
+  "anexo": {
+   "presente": false,
+   "paginas": []
+  },
+  "titulos_detectados": [
+   {
+    "pag": 3,
+    "txt": "1. Descripción General del Proyecto",
+    "size": 20.0
+   },
+   {
+    "pag": 3,
+    "txt": "1.1 Modificaciones a partir de evaluaciones de la cátedra",
+    "size": 17.0
+   },
+   {
+    "pag": 3,
+    "txt": "1.2 Decisiones adoptadas durante el desarrollo",
+    "size": 17.0
+   },
+   {
+    "pag": 4,
+    "txt": "1.3 Alcance de este documento",
+    "size": 17.0
+   },
+   {
+    "pag": 4,
+    "txt": "2. Materiales",
+    "size": 20.0
+   },
+   {
+    "pag": 5,
+    "txt": "3. Esquema Gráfico del Proyecto",
+    "size": 20.0
+   },
+   {
+    "pag": 7,
+    "txt": "4. Grado de Avance",
+    "size": 20.0
+   },
+   {
+    "pag": 7,
+    "txt": "4.1 Grado de Avance por Parte",
+    "size": 14.0
+   },
+   {
+    "pag": 8,
+    "txt": "4.2 Cumplimiento del Avance de Octubre",
+    "size": 14.0
+   },
+   {
+    "pag": 8,
+    "txt": "4.3 Hardware probado, requerimientos de alimentación y planificación",
+    "size": 14.0
+   },
+   {
+    "pag": 9,
+    "txt": "4.4 Documentación del Código",
+    "size": 14.0
+   },
+   {
+    "pag": 10,
+    "txt": "4.4.1 Código que controla el hardware",
+    "size": 13.0
+   },
+   {
+    "pag": 11,
+    "txt": "4.4.2 Código que controla las comunicaciones",
+    "size": 13.0
+   },
+   {
+    "pag": 12,
+    "txt": "4.4.3 Código del Sistema y la interfaz web",
+    "size": 13.0
+   },
+   {
+    "pag": 12,
+    "txt": "4.4.4 Software para PC o dispositivo móvil",
+    "size": 13.0
+   },
+   {
+    "pag": 13,
+    "txt": "4.5 Modelo de clasificación y optimización para la Raspberry Pi",
+    "size": 14.0
+   },
+   {
+    "pag": 14,
+    "txt": "4.6 Pruebas realizadas",
+    "size": 14.0
+   },
+   {
+    "pag": 15,
+    "txt": "4.7 Problemas encontrados y soluciones",
+    "size": 14.0
+   },
+   {
+    "pag": 15,
+    "txt": "4.8 Planificación de las partes faltantes",
+    "size": 14.0
+   },
+   {
+    "pag": 16,
+    "txt": "5. Documentación Relacionada",
+    "size": 20.0
+   },
+   {
+    "pag": 16,
+    "txt": "5.1 Fotografías del hardware",
+    "size": 14.0
+   },
+   {
+    "pag": 17,
+    "txt": "5.2 Capturas de la interfaz web",
+    "size": 14.0
+   },
+   {
+    "pag": 17,
+    "txt": "5.3 Video de las pruebas",
+    "size": 14.0
+   },
+   {
+    "pag": 18,
+    "txt": "5.4 Bitácora y repositorio",
+    "size": 14.0
+   },
+   {
+    "pag": 18,
+    "txt": "6. Bibliografía",
+    "size": 20.0
+   }
+  ],
+  "cotejo_indice": {
+   "ok": 13,
+   "desfasaje_paginas": 0,
+   "entradas_sin_titulo_en_doc": [],
+   "pagina_distinta": [
+    {
+     "pag_indice": 2,
+     "titulo": "4. Grado de Avance",
+     "pag_declarada": 6,
+     "pag_real": [
+      7
+     ]
+    },
+    {
+     "pag_indice": 2,
+     "titulo": "4.1 Grado de Avance por Parte",
+     "pag_declarada": 6,
+     "pag_real": [
+      7
+     ]
+    },
+    {
+     "pag_indice": 2,
+     "titulo": "4.2 Cumplimiento del Avance de Octubre",
+     "pag_declarada": 7,
+     "pag_real": [
+      8
+     ]
+    },
+    {
+     "pag_indice": 2,
+     "titulo": "4.4.1 Código que controla el hardware",
+     "pag_declarada": 9,
+     "pag_real": [
+      10
+     ]
+    },
+    {
+     "pag_indice": 2,
+     "titulo": "4.4.2 Código que controla las comunicaciones",
+     "pag_declarada": 10,
+     "pag_real": [
+      11
+     ]
+    },
+    {
+     "pag_indice": 2,
+     "titulo": "4.4.3 Código del Sistema y la interfaz web",
+     "pag_declarada": 11,
+     "pag_real": [
+      12
+     ]
+    },
+    {
+     "pag_indice": 2,
+     "titulo": "4.5 Modelo de clasificación y optimización para la Raspberry Pi",
+     "pag_declarada": 12,
+     "pag_real": [
+      13
+     ]
+    },
+    {
+     "pag_indice": 2,
+     "titulo": "4.6 Pruebas realizadas",
+     "pag_declarada": 13,
+     "pag_real": [
+      14
+     ]
+    },
+    {
+     "pag_indice": 2,
+     "titulo": "4.7 Problemas encontrados y soluciones",
+     "pag_declarada": 14,
+     "pag_real": [
+      15
+     ]
+    },
+    {
+     "pag_indice": 2,
+     "titulo": "5.2 Capturas de la interfaz web",
+     "pag_declarada": 16,
+     "pag_real": [
+      17
+     ]
+    },
+    {
+     "pag_indice": 2,
+     "titulo": "5.4 Bitácora y repositorio",
+     "pag_declarada": 17,
+     "pag_real": [
+      18
+     ]
+    },
+    {
+     "pag_indice": 2,
+     "titulo": "6. Bibliografía",
+     "pag_declarada": 17,
+     "pag_real": [
+      18
+     ]
+    }
+   ],
+   "titulos_sin_entrada_en_indice": []
+  }
+ },
+ "epigrafes": {
+  "epigrafes": [
+   {
+    "pag": 5,
+    "tipo": "Tabla",
+    "num": 1,
+    "txt": "Tabla 1. Epígrafe anonimizado",
+    "filas_tabla_arriba": 2,
+    "filas_tabla_abajo": 0,
+    "debajo_de_tabla": true,
+    "referencias_en_texto": 1
+   },
+   {
+    "pag": 5,
+    "tipo": "Figura",
+    "num": 1,
+    "txt": "Figura 1. Epígrafe anonimizado",
+    "imagen_arriba": true,
+    "imagen_abajo": false,
+    "debajo_de_figura": true,
+    "referencias_en_texto": 2
+   },
+   {
+    "pag": 6,
+    "tipo": "Figura",
+    "num": 2,
+    "txt": "Figura 2. Epígrafe anonimizado",
+    "imagen_arriba": true,
+    "imagen_abajo": false,
+    "debajo_de_figura": true,
+    "referencias_en_texto": 1
+   },
+   {
+    "pag": 8,
+    "tipo": "Tabla",
+    "num": 2,
+    "txt": "Tabla 2. Epígrafe anonimizado",
+    "filas_tabla_arriba": 1,
+    "filas_tabla_abajo": 4,
+    "debajo_de_tabla": false,
+    "referencias_en_texto": 1
+   },
+   {
+    "pag": 8,
+    "tipo": "Tabla",
+    "num": 3,
+    "txt": "Tabla 3. Epígrafe anonimizado",
+    "filas_tabla_arriba": 9,
+    "filas_tabla_abajo": 2,
+    "debajo_de_tabla": true,
+    "referencias_en_texto": 1
+   },
+   {
+    "pag": 9,
+    "tipo": "Tabla",
+    "num": 4,
+    "txt": "Tabla 4. Epígrafe anonimizado",
+    "filas_tabla_arriba": 9,
+    "filas_tabla_abajo": 0,
+    "debajo_de_tabla": true,
+    "referencias_en_texto": 1
+   },
+   {
+    "pag": 10,
+    "tipo": "Figura",
+    "num": 3,
+    "txt": "Figura 3. Epígrafe anonimizado",
+    "imagen_arriba": true,
+    "imagen_abajo": false,
+    "debajo_de_figura": true,
+    "referencias_en_texto": 1
+   },
+   {
+    "pag": 12,
+    "tipo": "Tabla",
+    "num": 5,
+    "txt": "Tabla 5. Epígrafe anonimizado",
+    "filas_tabla_arriba": 2,
+    "filas_tabla_abajo": 5,
+    "debajo_de_tabla": false,
+    "referencias_en_texto": 1
+   },
+   {
+    "pag": 13,
+    "tipo": "Tabla",
+    "num": 6,
+    "txt": "Tabla 6. Epígrafe anonimizado",
+    "filas_tabla_arriba": 4,
+    "filas_tabla_abajo": 0,
+    "debajo_de_tabla": true,
+    "referencias_en_texto": 2
+   },
+   {
+    "pag": 14,
+    "tipo": "Figura",
+    "num": 4,
+    "txt": "Figura 4. Epígrafe anonimizado",
+    "imagen_arriba": true,
+    "imagen_abajo": false,
+    "debajo_de_figura": true,
+    "referencias_en_texto": 1
+   },
+   {
+    "pag": 15,
+    "tipo": "Tabla",
+    "num": 7,
+    "txt": "Tabla 7. Epígrafe anonimizado",
+    "filas_tabla_arriba": 7,
+    "filas_tabla_abajo": 2,
+    "debajo_de_tabla": true,
+    "referencias_en_texto": 1
+   },
+   {
+    "pag": 16,
+    "tipo": "Tabla",
+    "num": 8,
+    "txt": "Tabla 8. Epígrafe anonimizado",
+    "filas_tabla_arriba": 5,
+    "filas_tabla_abajo": 0,
+    "debajo_de_tabla": true,
+    "referencias_en_texto": 1
+   },
+   {
+    "pag": 17,
+    "tipo": "Figura",
+    "num": 5,
+    "txt": "Figura 5. Epígrafe anonimizado",
+    "imagen_arriba": true,
+    "imagen_abajo": false,
+    "debajo_de_figura": true,
+    "referencias_en_texto": 1
+   },
+   {
+    "pag": 17,
+    "tipo": "Figura",
+    "num": 6,
+    "txt": "Figura 6. Epígrafe anonimizado",
+    "imagen_arriba": true,
+    "imagen_abajo": false,
+    "debajo_de_figura": true,
+    "referencias_en_texto": 2
+   }
+  ],
+  "cotejo_indice": [
+   {
+    "tipo": "Tabla",
+    "num": 1,
+    "pag": 5,
+    "en_indice": false,
+    "pag_indice_ok": null
+   },
+   {
+    "tipo": "Figura",
+    "num": 1,
+    "pag": 5,
+    "en_indice": false,
+    "pag_indice_ok": null
+   },
+   {
+    "tipo": "Figura",
+    "num": 2,
+    "pag": 6,
+    "en_indice": false,
+    "pag_indice_ok": null
+   },
+   {
+    "tipo": "Tabla",
+    "num": 2,
+    "pag": 8,
+    "en_indice": false,
+    "pag_indice_ok": null
+   },
+   {
+    "tipo": "Tabla",
+    "num": 3,
+    "pag": 8,
+    "en_indice": false,
+    "pag_indice_ok": null
+   },
+   {
+    "tipo": "Tabla",
+    "num": 4,
+    "pag": 9,
+    "en_indice": false,
+    "pag_indice_ok": null
+   },
+   {
+    "tipo": "Figura",
+    "num": 3,
+    "pag": 10,
+    "en_indice": false,
+    "pag_indice_ok": null
+   },
+   {
+    "tipo": "Tabla",
+    "num": 5,
+    "pag": 12,
+    "en_indice": false,
+    "pag_indice_ok": null
+   },
+   {
+    "tipo": "Tabla",
+    "num": 6,
+    "pag": 13,
+    "en_indice": false,
+    "pag_indice_ok": null
+   },
+   {
+    "tipo": "Figura",
+    "num": 4,
+    "pag": 14,
+    "en_indice": false,
+    "pag_indice_ok": null
+   },
+   {
+    "tipo": "Tabla",
+    "num": 7,
+    "pag": 15,
+    "en_indice": false,
+    "pag_indice_ok": null
+   },
+   {
+    "tipo": "Tabla",
+    "num": 8,
+    "pag": 16,
+    "en_indice": false,
+    "pag_indice_ok": null
+   },
+   {
+    "tipo": "Figura",
+    "num": 5,
+    "pag": 17,
+    "en_indice": false,
+    "pag_indice_ok": null
+   },
+   {
+    "tipo": "Figura",
+    "num": 6,
+    "pag": 17,
+    "en_indice": false,
+    "pag_indice_ok": null
+   }
+  ],
+  "en_indice_sin_epigrafe": [],
+  "tablas_detectadas": 12,
+  "tablas_sin_epigrafe": [
+   {
+    "pag": 4,
+    "top": 582.0,
+    "filas": 4
+   },
+   {
+    "pag": 4,
+    "top": 667.6666666666666,
+    "filas": 4
+   },
+   {
+    "pag": 7,
+    "top": 227.0,
+    "filas": 3
+   },
+   {
+    "pag": 7,
+    "top": 339.0,
+    "filas": 4
+   },
+   {
+    "pag": 7,
+    "top": 461.6666666666667,
+    "filas": 4
+   },
+   {
+    "pag": 8,
+    "top": 229.66666666666666,
+    "filas": 3
+   },
+   {
+    "pag": 8,
+    "top": 340.3333333333333,
+    "filas": 4
+   },
+   {
+    "pag": 12,
+    "top": 195.0,
+    "filas": 3
+   },
+   {
+    "pag": 15,
+    "top": 349.6666666666667,
+    "filas": 3
+   }
+  ],
+  "imagenes_grandes_sin_epigrafe": [],
+  "numeracion_figuras_correlativa": true,
+  "numeracion_tablas_correlativa": true,
+  "imagenes_por_pagina": {
+   "1": 2,
+   "5": 1,
+   "6": 1,
+   "10": 1,
+   "14": 1,
+   "17": 2
+  }
+ },
+ "lenguaje": [
+  {
+   "pag": 3,
+   "tipo": "verbo 1ª persona plural (candidato)",
+   "palabra": "tomamos",
+   "contexto": "contexto anonimizado tomamos contexto anonimizado"
+  }
+ ]
+}

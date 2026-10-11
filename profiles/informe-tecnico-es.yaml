@@ -1,0 +1,35 @@
+# Perfil base: informe técnico en español. Pensado para extenderse (extends: informe-tecnico-es@1).
+# Es deliberadamente permisivo; los perfiles hijos endurecen lo que exija cada norma.
+id: informe-tecnico-es
+version: 1.0.0
+descripcion: Informe técnico en español (perfil base)
+fuente_norma: null
+
+layout:
+  fuentes: [Arial, Times New Roman, Libertinus, Calibri, Cambria]
+  equivalentes: [Liberation Serif, Liberation Sans, Carlito, Caladea]
+  tamano_cuerpo_pt: 12
+  tolerancia_tamano_pt: 1.0       # admite cuerpos de 11 a 13 pt
+  interlineado: "1,5"             # simple | 1,5 | doble (se mide el PDF, no el menú del editor)
+  justificado: false              # false: no se verifica
+  epigrafes: debajo               # debajo | arriba
+
+estructura:                       # true | false | opcional (índices: también si_hay_figuras / si_hay_tablas)
+  caratula: true
+  indice: true
+  indice_figuras: opcional
+  indice_tablas: opcional
+  bibliografia: true
+  anexo: opcional
+
+lenguaje:
+  persona: impersonal
+
+referencias:
+  csl: null
+
+privacidad:
+  modo: sin_llm
+
+severidades: {}                   # sobrescrituras por ID, ej. { LEN-01: info }
+plantilla: null

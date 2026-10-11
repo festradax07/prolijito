@@ -1,0 +1,24 @@
+# Entregas de Taller de Proyecto II (Ingeniería en Computación, UNLP).
+# Cada valor sale de la rúbrica de la cátedra; la sección se indica al lado.
+id: unlp-tp2
+version: 1.0.0
+extends: informe-tecnico-es@1
+descripcion: Entregas de Taller de Proyecto II (UNLP)
+fuente_norma: third_party/formato-entregas/rubrica.md
+
+layout:
+  fuentes: [Arial, Times New Roman, Libertinus]           # §5: Calibri, Cambria, Computer Modern no
+  equivalentes: [Liberation Serif, Liberation Sans]       # §5: equivalentes métricos aceptados
+  tamano_cuerpo_pt: 12                                    # §5
+  tolerancia_tamano_pt: 0.6                               # precisión de la medición (≈0,3 pt)
+  interlineado: "1,5"                                     # §5: el 1,15 de Docs mide como simple
+  justificado: true                                       # §5
+  epigrafes: debajo                                       # §4: también en tablas
+
+estructura:                                               # §1
+  caratula: true
+  indice: true
+  indice_figuras: si_hay_figuras
+  indice_tablas: si_hay_tablas
+  bibliografia: true
+  anexo: opcional

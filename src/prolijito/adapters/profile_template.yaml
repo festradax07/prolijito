@@ -1,0 +1,38 @@
+# Perfil de prolijito: $id
+#
+# Uso:
+#   prolijito check informe.pdf --profile $id.yaml
+#   prolijito check informe.pdf --profile $id --profiles-dir <carpeta donde está este archivo>
+#
+# Reglas:
+#   - El archivo se llama igual que el id: $id.yaml
+#   - Hereda de un perfil existente (extends) y cambia solo lo necesario: todo lo que no se
+#     escribe acá se toma del padre. Las listas reemplazan a las del padre, no se suman.
+#   - `prolijito profiles` muestra los perfiles disponibles para extender.
+
+# id: kebab-case, igual al nombre del archivo
+id: $id
+version: 1.0.0                        # subir el major si un documento que pasaba deja de pasar
+extends: informe-tecnico-es@1         # perfil padre @ versión mayor
+descripcion: Describir la norma (materia, empresa, tipo de documento)
+fuente_norma: null                    # ruta o URL de la norma original
+
+layout:
+  fuentes: [Arial, Times New Roman]   # familias permitidas en el cuerpo
+  # equivalentes: [Liberation Serif, Liberation Sans]   # equivalentes métricos aceptados
+  tamano_cuerpo_pt: 12
+  tolerancia_tamano_pt: 0.6           # margen de medición; menos de 0,5 da falsos positivos
+  interlineado: "1,5"                 # simple | 1,5 | doble
+  justificado: true                   # false: no se verifica
+  epigrafes: debajo                   # debajo | arriba
+
+# estructura:                         # true | false | opcional
+#   caratula: true
+#   indice: true
+#   indice_figuras: si_hay_figuras    # o true | false | opcional
+#   indice_tablas: si_hay_tablas      # o true | false | opcional
+#   bibliografia: true
+#   anexo: opcional
+
+# severidades:                        # cambiar la severidad de una regla: error | revisar | info
+#   LEN-01: info
