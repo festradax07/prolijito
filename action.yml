@@ -10,7 +10,9 @@ inputs:
     description: ID de un perfil incluido (informe-tecnico-es, unlp-tp2) o ruta a un .yaml del repo.
     required: true
   path:
-    description: Archivo PDF o carpeta donde buscar PDFs (recursivo).
+    description: >-
+      Uno o más PDFs o carpetas (recursivas), uno por línea. Sirve para pasar la salida de
+      `git diff --name-only` y chequear solo los PDFs que cambia un PR.
     required: true
   profiles-dir:
     description: Carpeta del repo con perfiles propios.

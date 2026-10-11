@@ -122,7 +122,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: festradax07/prolijito@main
+      - uses: festradax07/prolijito@v0.1.0
         with:
           profile: unlp-tp2
           path: entregas/            # un PDF o una carpeta (recursivo)
@@ -136,10 +136,41 @@ jobs:
 | Input | Por defecto | Para qué |
 |---|---|---|
 | `profile` | — | ID de un perfil incluido o ruta a un `.yaml` del repo. |
-| `path` | — | PDF o carpeta con PDFs. |
+| `path` | — | Uno o más PDFs o carpetas (recursivas), uno por línea. |
 | `profiles-dir` | | Carpeta del repo con perfiles propios. |
 | `fail-on` | `error` | `error`, `revisar` o `never`. |
 | `report-dir` | `prolijito-reportes` | Dónde se guardan los reportes JSON. |
+
+### Chequear solo los PDFs que cambia el PR
+
+Si la carpeta guarda también entregas anteriores, conviene validar solo lo que agrega o modifica
+el PR: se calcula la lista con `git diff` y se pasa en `path`, un PDF por línea.
+
+```yaml
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0              # historia completa, para comparar con la rama destino
+      - name: PDFs del PR
+        id: pdfs
+        env:
+          BASE: origin/${{ github.base_ref }}
+        run: |
+          {
+            echo "lista<<EOF"
+            git diff --name-only --diff-filter=AMR "$BASE"...HEAD -- 'docs/entregas/*.pdf'
+            echo "EOF"
+          } >> "$GITHUB_OUTPUT"
+      - uses: festradax07/prolijito@v0.1.0
+        if: steps.pdfs.outputs.lista != ''
+        with:
+          profile: unlp-tp2
+          path: ${{ steps.pdfs.outputs.lista }}
+```
+
+Para fijar qué reglas bloquean y cuáles solo avisan, se usa un perfil propio en el repo que extienda
+el de la norma y cambie `severidades` (ver [Crear un perfil propio](#crear-un-perfil-propio)), con
+`profiles-dir` apuntando a su carpeta.
 
 Para que un PR no se pueda mergear con errores, marcar el job como obligatorio en la protección de
 la rama (*Settings → Branches → Require status checks*). La acción no necesita permisos de

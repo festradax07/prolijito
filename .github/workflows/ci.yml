@@ -65,13 +65,26 @@ jobs:
           profile: unlp-tp2
           path: tests/fixtures/pdf/interlineado-simple.pdf
           report-dir: reportes-simple
+      - name: Varios PDFs, uno por línea (como la salida de git diff)
+        id: varios
+        continue-on-error: true
+        uses: ./
+        with:
+          profile: unlp-tp2
+          path: |
+            tests/fixtures/pdf/cumple.pdf
+            tests/fixtures/pdf/interlineado-simple.pdf
+          report-dir: reportes-varios
       - name: Verificar resultados
         run: |
           test "${{ steps.simple.outcome }}" = failure
+          test "${{ steps.varios.outcome }}" = failure
           ls prolijito-reportes/*.json reportes-simple/*.json
+          test "$(ls reportes-varios/*.json | wc -l)" -eq 2
       - uses: actions/upload-artifact@v4
         with:
           name: reportes-de-ejemplo
           path: |
             prolijito-reportes/
             reportes-simple/
+            reportes-varios/

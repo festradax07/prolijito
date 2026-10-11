@@ -2,11 +2,13 @@
 # Entrypoint de la GitHub Action (action.yml). Recorre los PDFs de `path`, publica anotaciones y el
 # resumen del job, y guarda un reporte JSON por PDF en `report-dir`.
 #
-# Uso: prolijito-action <perfil> <archivo-o-carpeta> [profiles-dir] [fail-on] [report-dir]
+# Uso: prolijito-action <perfil> <rutas> [profiles-dir] [fail-on] [report-dir]
+#   <rutas>: uno o más PDFs o carpetas, uno por línea (por ejemplo, la salida de `git diff --name-only`).
+# Exit: 0 sin errores · 1 hay violaciones desde `fail-on` · 2 una ruta no existe o un chequeo falló.
 set -u
 
 profile="$1"
-target="$2"
+targets="$2"
 profiles_dir="${3:-}"
 fail_on="${4:-error}"
 report_dir="${5:-prolijito-reportes}"
@@ -16,23 +18,35 @@ if [ -n "$profiles_dir" ]; then
   set -- "$@" --profiles-dir "$profiles_dir"
 fi
 
+entries="$(mktemp)"
 list="$(mktemp)"
-if [ -d "$target" ]; then
-  find "$target" -type f -name '*.pdf' | sort > "$list"
-elif [ -f "$target" ]; then
-  printf '%s\n' "$target" > "$list"
-else
-  echo "::error title=prolijito::No existe '$target' (input path)."
-  exit 2
-fi
+trap 'rm -f "$entries" "$list"' EXIT
+printf '%s\n' "$targets" > "$entries"
+
+status=0
+while IFS= read -r entry; do
+  entry="$(printf '%s' "$entry" | sed 's/^[[:space:]]*//; s/[[:space:]]*$//')"
+  if [ -z "$entry" ]; then
+    continue
+  elif [ -d "$entry" ]; then
+    find "$entry" -type f -name '*.pdf' >> "$list"
+  elif [ -f "$entry" ]; then
+    printf '%s\n' "$entry" >> "$list"
+  else
+    echo "::error title=prolijito::No existe '$entry' (input path)."
+    status=2
+  fi
+done < "$entries"
+sort -u -o "$list" "$list"
 
 if [ ! -s "$list" ]; then
-  echo "::warning title=prolijito::No hay PDFs en '$target'."
-  exit 0
+  if [ "$status" -eq 0 ]; then
+    echo "::warning title=prolijito::No hay PDFs para chequear en el input path."
+  fi
+  exit "$status"
 fi
 
 mkdir -p "$report_dir"
-status=0
 while IFS= read -r pdf; do
   prolijito check "$pdf" "$@" --format github --fail-on "$fail_on"
   code=$?
@@ -46,5 +60,4 @@ while IFS= read -r pdf; do
     status=1
   fi
 done < "$list"
-rm -f "$list"
 exit "$status"
