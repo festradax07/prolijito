@@ -76,9 +76,7 @@ def _line_spacing(m: Measurements, p: Profile) -> Iterator[Violation]:
             expected=expected.value,
             measured=measured,
             autofixable=True,
-            occurrences=tuple(
-                Occurrence(n, "interlineado distinto") for n in spacing.deviant_pages
-            ),
+            occurrences=tuple(Occurrence(n, "") for n in spacing.deviant_pages),
         )
 
 
@@ -110,7 +108,7 @@ def _justification(m: Measurements, p: Profile) -> Iterator[Violation]:
             page=doubtful[0] if doubtful else None,
             expected="justificado",
             measured=measured,
-            occurrences=tuple(Occurrence(n, "justificado dudoso") for n in doubtful),
+            occurrences=tuple(Occurrence(n, "") for n in doubtful),
         )
 
 

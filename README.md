@@ -20,8 +20,8 @@ En desarrollo, camino al MVP: `prolijito check` sobre PDF, en la terminal y como
 | 22 reglas de formato (`TIP`, `EST`, `TIT`, `FIG`, `LEN`) | ✅ |
 | Perfiles YAML con herencia, plantilla para perfiles propios | ✅ |
 | `prolijito profiles` | ✅ |
-| Reportes Markdown, JSON y GitHub | 🚧 próximo paso |
-| `prolijito check` de punta a punta | 🚧 hoy valida los argumentos y responde "no implementado" |
+| Reportes Markdown, JSON y anotaciones de GitHub, con «cómo arreglar» por herramienta | ✅ |
+| `prolijito check` de punta a punta | ✅ |
 | Imagen Docker, instalador y GitHub Action | ⏳ |
 | `fix`, `review`, `new` | ⏳ fases siguientes |
 
@@ -32,7 +32,7 @@ Requisitos: Python 3.11 o superior y, para medir PDFs, `poppler-utils` (`pdftoht
 
 ```bash
 sudo apt install poppler-utils        # Debian/Ubuntu; en macOS: brew install poppler
-git clone git@github.com:festradax07/prolijito.git
+git clone https://github.com/festradax07/prolijito.git
 cd prolijito
 python3 -m venv .venv
 source .venv/bin/activate
@@ -45,16 +45,48 @@ Más adelante la forma recomendada va a ser la imagen Docker, que trae poppler y
 ## Uso
 
 ```bash
-prolijito --help                      # comandos disponibles
-prolijito profiles                    # perfiles disponibles
-prolijito check informe.pdf --profile unlp-tp2      # 🚧 en construcción
+prolijito --help                                        # comandos disponibles
+prolijito profiles                                      # perfiles disponibles
+prolijito check informe.pdf --profile unlp-tp2          # reporte en Markdown en la terminal
+prolijito check informe.pdf --profile unlp-tp2 --format json --output reporte.json
 ```
 
-`check` acepta `--profile` con el ID de un perfil o la ruta a un `.yaml`, y `--profiles-dir` para
-sumar una carpeta con perfiles propios (tiene prioridad sobre los incluidos).
+Opciones de `check`:
 
-Exit codes: `0` sin errores · `1` hay violaciones de severidad `error` · `2` error de ejecución
-(archivo inexistente, perfil inválido, dependencia faltante).
+| Opción | Para qué |
+|---|---|
+| `--profile` | ID de un perfil (`prolijito profiles`) o ruta a un `.yaml`. Obligatoria. |
+| `--profiles-dir DIR` | Suma una carpeta con perfiles propios; tiene prioridad sobre los incluidos. |
+| `--format md\|json\|github` | `md` (por defecto) para leer; `json` para otras herramientas; `github` para Actions: anotaciones y el Markdown en el resumen del job. |
+| `--output ARCHIVO` | Guarda el reporte en un archivo en vez de imprimirlo. |
+| `--fail-on error\|revisar\|never` | Desde qué severidad termina con exit code 1 (por defecto: `error`). |
+
+Ejemplo de reporte (recortado):
+
+```markdown
+# Chequeo de formato — informe.pdf — perfil unlp-tp2@1.0.0
+
+**Estado:** ❌ con 25 errores y 2 puntos a revisar
+
+## Errores (❌)
+
+### Títulos e índice
+
+**TIT-02 · Páginas del índice correctas** (12)
+
+- p. 7 — «4. Grado de Avance» no está en la página que indica el índice. (esperado: p. 6 · medido: p. 7)
+- Cómo arreglar:
+  - **Google Docs:** Insertar → Índice; usar estilos Título 1/2 en los títulos. Para actualizar, clic en el índice → Actualizar.
+  - **Word / LibreOffice:** Referencias → Tabla de contenido. Para actualizar, clic derecho → Actualizar campos.
+  - **LaTeX:** `\tableofcontents` (compilar dos veces).
+  - **Typst:** `#outline()`
+```
+
+El reporte completo de ejemplo está en
+[`tests/report/snapshots/tp2-informe-avance.md`](tests/report/snapshots/tp2-informe-avance.md).
+
+Exit codes: `0` sin errores · `1` hay violaciones de severidad `error` (o la que indique
+`--fail-on`) · `2` error de ejecución (archivo inexistente, perfil inválido, dependencia faltante).
 
 ## Perfiles
 
@@ -126,7 +158,8 @@ make format         # formatea y aplica fixes automáticos
 - Arquitectura hexagonal (`domain` → `validate` → `application` → `adapters`/`report` → `cli`). La
   CI falla si una capa importa de una superior. Ver [ADR 0005](docs/adr/0005-arquitectura-hexagonal-y-calidad.md).
 - Los tests corren sin poppler usando mediciones guardadas en `tests/fixtures/`. Los que necesitan
-  dependencias de sistema llevan `@pytest.mark.system`: `pytest -m system`.
+  dependencias de sistema llevan `@pytest.mark.system`: `pytest -m system` mide los PDFs que haya
+  en `docs/doc_test/` (carpeta ignorada por git, para documentos reales que no se suben).
 - Las decisiones de diseño están en [`docs/adr/`](docs/adr/).
 
 ## Créditos

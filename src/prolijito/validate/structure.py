@@ -47,6 +47,6 @@ def _section(
     if section.present:
         return
     if requirement.is_required(has_content=has_content):
-        yield Violation(rule_id, Severity.ERROR, f"Falta {name}.", expected="presente")
+        yield Violation(rule_id, Severity.ERROR, f"Falta {name}.")
     elif requirement is Requirement.OPTIONAL:
         yield Violation(rule_id, Severity.INFO, f"No hay {name} (es opcional).")

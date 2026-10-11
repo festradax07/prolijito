@@ -21,7 +21,8 @@ from prolijito.domain import (
 )
 
 FIXTURE = Path(__file__).parents[1] / "fixtures" / "mediciones" / "tp2-informe-avance.json"
-REAL_PDF = Path(__file__).parents[2] / "docs" / "doc_test" / "Entrega2-Informe-de-Avance.pdf"
+# PDFs reales para pruebas locales: se ponen en docs/doc_test/ (ignorada por git).
+LOCAL_PDFS = sorted((Path(__file__).parents[2] / "docs" / "doc_test").glob("*.pdf"))
 
 
 @pytest.fixture
@@ -168,9 +169,10 @@ def test_default_script_path(monkeypatch: pytest.MonkeyPatch, tmp_path: Path) ->
 
 
 @pytest.mark.system
-@pytest.mark.skipif(not REAL_PDF.is_file(), reason="PDF real local (docs/doc_test) no disponible")
-def test_measures_a_real_pdf() -> None:
-    m = CathedraMeasurer().measure(REAL_PDF)
+@pytest.mark.skipif(not LOCAL_PDFS, reason="sin PDFs locales en docs/doc_test/")
+@pytest.mark.parametrize("pdf", LOCAL_PDFS, ids=lambda p: p.name)
+def test_measures_local_pdfs(pdf: Path) -> None:
+    m = CathedraMeasurer().measure(pdf)
 
-    assert m.page_count == 19
-    assert m.structure.bibliography.present
+    assert m.page_count > 0
+    assert m.typography.body.size_pt > 0

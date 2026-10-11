@@ -41,3 +41,6 @@ htmlcov/
 
 # PDFs reales para pruebas locales (nunca al repo)
 docs/doc_test/
+
+# Bitácora de avances (interna)
+docs/bitacora.md

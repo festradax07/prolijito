@@ -21,4 +21,4 @@ class CheckDocument:
         profile = self.profiles.load(profile_reference)
         measurements = self.measurer.measure(document)
         violations = evaluate(measurements, profile, self.fixes.how_to_fix())
-        return CheckResult(document=document.name, profile=profile, violations=violations)
+        return CheckResult(document=str(document), profile=profile, violations=violations)

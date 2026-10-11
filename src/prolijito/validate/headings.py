@@ -23,7 +23,7 @@ def check_headings(m: Measurements, _: Profile) -> Iterator[Violation]:
         yield Violation(
             "TIT-02",
             Severity.ERROR,
-            f"El índice dice que «{mismatch.title}» está en la p. {mismatch.declared_page}.",
+            f"«{mismatch.title}» no está en la página que indica el índice.",
             page=mismatch.actual_pages[0] if mismatch.actual_pages else None,
             expected=f"p. {mismatch.declared_page}",
             measured=f"p. {pages(mismatch.actual_pages)}",

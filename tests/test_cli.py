@@ -1,11 +1,16 @@
+import json
 import subprocess
 import sys
 from pathlib import Path
 
 import pytest
 
-from prolijito import __version__
+from prolijito import __version__, cli
+from prolijito.adapters.cathedra_measurer import parse_measurements
 from prolijito.cli import ExitCode, main, run
+from prolijito.domain import Measurements
+
+FIXTURE = Path(__file__).parent / "fixtures" / "mediciones" / "tp2-informe-avance.json"
 
 
 def test_version_prints_package_version(capsys: pytest.CaptureFixture[str]) -> None:
@@ -62,16 +67,6 @@ def test_check_missing_file_is_execution_error(
 
     assert code == ExitCode.EXECUTION_ERROR
     assert "no existe el archivo" in capsys.readouterr().err
-
-
-def test_check_is_not_wired_yet(tmp_path: Path, capsys: pytest.CaptureFixture[str]) -> None:
-    document = tmp_path / "informe.pdf"
-    document.touch()
-
-    code = main(["check", str(document), "--profile", "unlp-tp2"])
-
-    assert code == ExitCode.EXECUTION_ERROR
-    assert "todavía no está implementado" in capsys.readouterr().err
 
 
 @pytest.mark.parametrize(
@@ -150,3 +145,80 @@ def test_missing_profiles_dir_is_execution_error(
 
     assert code == ExitCode.EXECUTION_ERROR
     assert "no existe la carpeta de perfiles" in capsys.readouterr().err
+
+
+# ---------- check de punta a punta (medidor falso: sin poppler) ----------
+
+
+class FixtureMeasurer:
+    def measure(self, document: Path) -> Measurements:
+        return parse_measurements(json.loads(FIXTURE.read_text(encoding="utf-8")))
+
+
+@pytest.fixture
+def pdf(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> Path:
+    monkeypatch.setattr(cli, "_measurer", FixtureMeasurer)
+    monkeypatch.delenv("GITHUB_STEP_SUMMARY", raising=False)
+    document = tmp_path / "entrega.pdf"
+    document.touch()
+    return document
+
+
+def test_check_prints_markdown_and_fails_on_errors(
+    pdf: Path, capsys: pytest.CaptureFixture[str]
+) -> None:
+    code = main(["check", str(pdf), "--profile", "unlp-tp2"])
+
+    out = capsys.readouterr().out
+    assert code == ExitCode.VIOLATIONS
+    assert out.startswith("# Chequeo de formato — entrega.pdf — perfil unlp-tp2@1.0.0")
+    assert "TIT-02" in out
+
+
+def test_check_json_to_output_file(pdf: Path, capsys: pytest.CaptureFixture[str]) -> None:
+    output = pdf.parent / "reporte.json"
+
+    main(["check", str(pdf), "--profile", "unlp-tp2", "--format", "json", "--output", str(output)])
+
+    assert json.loads(output.read_text())["perfil"] == "unlp-tp2@1.0.0"
+    assert "reporte guardado" in capsys.readouterr().err
+
+
+@pytest.mark.parametrize(
+    ("fail_on", "code"), [("never", ExitCode.OK), ("error", ExitCode.VIOLATIONS)]
+)
+def test_check_fail_on(pdf: Path, fail_on: str, code: ExitCode) -> None:
+    assert main(["check", str(pdf), "--profile", "unlp-tp2", "--fail-on", fail_on]) == code
+
+
+def test_lenient_profile_only_reports_what_it_requires(
+    pdf: Path, capsys: pytest.CaptureFixture[str]
+) -> None:
+    main(["check", str(pdf), "--profile", "informe-tecnico-es", "--format", "json"])
+
+    severities = {
+        v["id"]: v["severidad"] for v in json.loads(capsys.readouterr().out)["violaciones"]
+    }
+    assert severities["EST-03"] == "info"  # en la base, el índice de figuras es opcional
+    assert "TIP-04" not in severities  # y el justificado no se verifica
+
+
+def test_check_github_writes_annotations_and_job_summary(
+    pdf: Path, monkeypatch: pytest.MonkeyPatch, capsys: pytest.CaptureFixture[str]
+) -> None:
+    summary = pdf.parent / "summary.md"
+    monkeypatch.setenv("GITHUB_STEP_SUMMARY", str(summary))
+
+    main(["check", str(pdf), "--profile", "unlp-tp2", "--format", "github"])
+
+    lines = capsys.readouterr().out.splitlines()
+    assert any(line.startswith("::error file=") for line in lines)
+    assert lines[-1].startswith("prolijito: ")
+    assert summary.read_text().startswith("# Chequeo de formato")
+
+
+def test_check_with_unknown_profile_is_execution_error(
+    pdf: Path, capsys: pytest.CaptureFixture[str]
+) -> None:
+    assert main(["check", str(pdf), "--profile", "no-existe"]) == ExitCode.EXECUTION_ERROR
+    assert "no existe el perfil 'no-existe'" in capsys.readouterr().err

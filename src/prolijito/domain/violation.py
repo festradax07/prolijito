@@ -39,10 +39,10 @@ RULE_ID_PATTERN = re.compile(rf"^({'|'.join(CATEGORY_BY_PREFIX)})-\d{{2}}$")
 
 @dataclass(frozen=True, slots=True)
 class Occurrence:
-    """Un lugar puntual del documento que dispara la violación."""
+    """Un lugar puntual del documento que dispara la violación. `text` puede ir vacío."""
 
     page: int | None
-    text: str
+    text: str = ""
 
 
 @dataclass(frozen=True, slots=True)

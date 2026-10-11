@@ -11,6 +11,7 @@ from prolijito.domain.violation import Severity, Violation
 @dataclass(frozen=True, slots=True)
 class CheckResult:
     document: str
+    """Ruta del documento tal como se indicó (las anotaciones de GitHub la necesitan)."""
     profile: Profile
     violations: tuple[Violation, ...]
 
@@ -23,3 +24,10 @@ class CheckResult:
     @property
     def has_errors(self) -> bool:
         return self.count(Severity.ERROR) > 0
+
+    def fails(self, threshold: Severity | None) -> bool:
+        """¿Hay violaciones de severidad `threshold` o más grave? `None`: nunca falla."""
+        if threshold is None:
+            return False
+        blocking = list(Severity)[: list(Severity).index(threshold) + 1]
+        return any(self.count(severity) for severity in blocking)

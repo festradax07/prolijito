@@ -1,0 +1,85 @@
+# Cómo corregir cada regla, por herramienta. Basado en la §6 de la rúbrica de TP2
+# (third_party/formato-entregas/rubrica.md), redactado sin valores de una norma en particular:
+# los valores esperados salen del perfil y se muestran aparte en el reporte.
+#
+# Claves: general | docs (Google Docs) | word (Word / LibreOffice) | latex | typst
+
+_fuente: &fuente
+  docs: Estilos → Texto normal → fuente y tamaño del perfil → «Actualizar para que coincida».
+  word: Modificar el estilo Normal con la fuente y el tamaño del perfil.
+  latex: "Tamaño en la clase (`\\documentclass[<tamaño>pt]{article}`) y paquete de fuente (`newtxtext`, `libertinus`)."
+  typst: '`#set text(font: "<fuente>", size: <tamaño>pt)`'
+
+_indice_figuras: &indice_figuras
+  docs: No es nativo. Lista a mano con número, leyenda y página, o un complemento de índice con estilo propio para epígrafes.
+  word: Referencias → Insertar tabla de ilustraciones (requiere epígrafes con Insertar título).
+  latex: "`\\listoffigures` / `\\listoftables`"
+  typst: "`#outline(target: figure.where(kind: image))` / `kind: table`"
+
+_indice: &indice
+  docs: Insertar → Índice; usar estilos Título 1/2 en los títulos. Para actualizar, clic en el índice → Actualizar.
+  word: Referencias → Tabla de contenido. Para actualizar, clic derecho → Actualizar campos.
+  latex: "`\\tableofcontents` (compilar dos veces)."
+  typst: "`#outline()`"
+
+_epigrafe: &epigrafe
+  docs: Párrafo centrado debajo de la figura o tabla, con un estilo propio («Epígrafe») para poder listarlo.
+  word: Referencias → Insertar título → posición «Debajo de la selección».
+  latex: "`\\caption` después del `tabular` o `\\includegraphics`; `\\usepackage[spanish,es-tabla]{babel}` para «Tabla»."
+  typst: "`#show figure.where(kind: table): set figure.caption(position: bottom)`"
+
+TIP-01: *fuente
+TIP-02: *fuente
+TIP-03:
+  docs: Formato → Interlineado y espaciado → el valor del perfil. El «1,15» por defecto mide como simple.
+  word: Párrafo → Interlineado → el valor del perfil.
+  latex: "`\\usepackage{setspace}` y `\\onehalfspacing` o `\\doublespacing` (`\\linespread{1.15}` no es 1,5)."
+  typst: "`#set par(leading: …)` y volver a medir: el valor nominal no coincide con el impreso."
+TIP-04:
+  docs: Seleccionar los párrafos → Ctrl+Shift+J.
+  word: Seleccionar los párrafos → Ctrl+J.
+  latex: "Es el comportamiento por defecto; quitar `\\raggedright` si se usó."
+  typst: "`#set par(justify: true)`"
+TIP-05:
+  general: Usar la fuente del cuerpo en todo el texto; una monoespaciada solo en bloques de código.
+EST-01:
+  general: La carátula va sola en la página 1, con un salto de página después.
+  latex: "`\\begin{titlepage} … \\end{titlepage}`"
+  typst: "`#pagebreak()` después de la carátula."
+EST-02: *indice
+EST-03: *indice_figuras
+EST-04: *indice_figuras
+EST-05:
+  general: Sección «Bibliografía» con autor o título, URL o editorial y fecha de consulta.
+  word: Referencias → Bibliografía.
+  latex: "`\\printbibliography` (biblatex) o `\\bibliography{…}`"
+  typst: '`#bibliography("referencias.bib")`'
+EST-06:
+  general: Opcional. Para código extenso, datasheets o esquemáticos grandes.
+TIT-01: *indice
+TIT-02: *indice
+TIT-03:
+  general: Aplicar el estilo de título (Título 1/2) para que entre al índice, y actualizar el índice.
+FIG-01:
+  general: Numerar las figuras desde 1, sin saltos ni repeticiones.
+  word: Insertar título numera solo; F9 actualiza.
+  latex: "`\\caption` numera solo."
+  typst: "`figure` numera solo."
+FIG-02:
+  general: Numerar las tablas desde 1, sin saltos ni repeticiones (independiente de las figuras).
+  word: Insertar título numera solo; F9 actualiza.
+  latex: "`\\caption` numera solo."
+  typst: "`figure` numera solo."
+FIG-03: *epigrafe
+FIG-04:
+  general: Mencionar la figura o tabla por su número en el texto («como muestra la Figura 2»).
+  word: Referencias → Referencia cruzada.
+  latex: "`\\ref` o `\\autoref`"
+  typst: "`@etiqueta`"
+FIG-05: *indice_figuras
+FIG-06: *epigrafe
+FIG-07: *epigrafe
+LEN-01:
+  general: >-
+    Reescribir en impersonal («se propone», «se implementó») o en tercera persona («el grupo
+    definió»). Leer la oración completa: puede ser un falso positivo.

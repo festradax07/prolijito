@@ -7,22 +7,30 @@ La lógica vive en `application/`.
 from __future__ import annotations
 
 import argparse
+import os
 import sys
 from collections.abc import Callable, Sequence
 from enum import IntEnum
 from pathlib import Path
 
 from prolijito import __version__
+from prolijito.adapters.cathedra_measurer import CathedraMeasurer
+from prolijito.adapters.fix_catalog import YamlFixCatalog
 from prolijito.adapters.yaml_profiles import (
     YamlProfileRepository,
     builtin_profiles_dir,
     profile_template,
 )
+from prolijito.application.check import CheckDocument
 from prolijito.application.errors import ProlijitoError
+from prolijito.application.ports import Measurer
+from prolijito.domain import CheckResult, Severity
 from prolijito.domain.profile import PROFILE_ID_PATTERN
+from prolijito.report import RENDERERS, render_markdown
 
 PROG = "prolijito"
-REPORT_FORMATS = ("md", "json", "github")
+REPORT_FORMATS = tuple(RENDERERS)
+FAIL_ON = {"error": Severity.ERROR, "revisar": Severity.REVIEW, "never": None}
 CUSTOM_PROFILE_HINT = """\
 Perfil propio:
   prolijito profiles --template mi-perfil > mi-perfil.yaml
@@ -62,7 +70,31 @@ def _check(args: argparse.Namespace) -> ExitCode:
     document: Path = args.file
     if not document.is_file():
         return _fail(f"no existe el archivo '{document}'.")
-    return _fail("'check' todavía no está implementado.")
+    check = CheckDocument(_measurer(), _profile_repository(args.profiles_dir), YamlFixCatalog())
+    result = check(document, args.profile)
+    _write_report(RENDERERS[args.format](result), args.output)
+    if args.format == "github":
+        _append_step_summary(result)
+    return ExitCode.VIOLATIONS if result.fails(FAIL_ON[args.fail_on]) else ExitCode.OK
+
+
+def _measurer() -> Measurer:
+    return CathedraMeasurer()
+
+
+def _write_report(report: str, output: Path | None) -> None:
+    if output is None:
+        sys.stdout.write(report)
+        return
+    output.write_text(report, encoding="utf-8")
+    sys.stderr.write(f"{PROG}: reporte guardado en '{output}'.\n")
+
+
+def _append_step_summary(result: CheckResult) -> None:
+    """En GitHub Actions, el Markdown completo va al resumen del job."""
+    if summary := os.environ.get("GITHUB_STEP_SUMMARY"):
+        with Path(summary).open("a", encoding="utf-8") as file:
+            file.write(render_markdown(result) + "\n")
 
 
 def _profiles(args: argparse.Namespace) -> ExitCode:
@@ -135,6 +167,12 @@ def _build_parser() -> argparse.ArgumentParser:
         help="Formato del reporte (por defecto: md).",
     )
     check.add_argument("--output", type=Path, help="Archivo donde escribir el reporte.")
+    check.add_argument(
+        "--fail-on",
+        choices=tuple(FAIL_ON),
+        default="error",
+        help="Desde qué severidad termina con exit code 1 (por defecto: error).",
+    )
 
     fix = _add_command(commands, "fix", "Corrige el formato (Fase 3).", _not_implemented("fix"))
     _add_document_args(fix)

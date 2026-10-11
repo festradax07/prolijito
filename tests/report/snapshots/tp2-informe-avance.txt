@@ -1,0 +1,29 @@
+::warning file=entregas/entrega.pdf,title=TIP-05 Otras familias tipográficas permitidas::Se usan otras familias tipográficas: CourierNew. En código o tablas puede estar bien.
+::error file=entregas/entrega.pdf,title=EST-03 Índice de figuras::Falta el índice de figuras.
+::error file=entregas/entrega.pdf,title=EST-04 Índice de tablas::Falta el índice de tablas.
+::notice file=entregas/entrega.pdf,title=EST-06 Anexo::No hay anexo (es opcional).
+::error file=entregas/entrega.pdf,title=TIT-02 Páginas del índice correctas::«4. Grado de Avance» no está en la página que indica el índice. (p. 7)
+::error file=entregas/entrega.pdf,title=TIT-02 Páginas del índice correctas::«4.1 Grado de Avance por Parte» no está en la página que indica el índice. (p. 7)
+::error file=entregas/entrega.pdf,title=TIT-02 Páginas del índice correctas::«4.2 Cumplimiento del Avance de Octubre» no está en la página que indica el índice. (p. 8)
+::error file=entregas/entrega.pdf,title=TIT-02 Páginas del índice correctas::«4.4.1 Código que controla el hardware» no está en la página que indica el índice. (p. 10)
+::error file=entregas/entrega.pdf,title=TIT-02 Páginas del índice correctas::«4.4.2 Código que controla las comunicaciones» no está en la página que indica el índice. (p. 11)
+::error file=entregas/entrega.pdf,title=TIT-02 Páginas del índice correctas::«4.4.3 Código del Sistema y la interfaz web» no está en la página que indica el índice. (p. 12)
+::error file=entregas/entrega.pdf,title=TIT-02 Páginas del índice correctas::«4.5 Modelo de clasificación y optimización para la Raspberry Pi» no está en la página que indica el índice. (p. 13)
+::error file=entregas/entrega.pdf,title=TIT-02 Páginas del índice correctas::«4.6 Pruebas realizadas» no está en la página que indica el índice. (p. 14)
+::error file=entregas/entrega.pdf,title=TIT-02 Páginas del índice correctas::«4.7 Problemas encontrados y soluciones» no está en la página que indica el índice. (p. 15)
+::error file=entregas/entrega.pdf,title=TIT-02 Páginas del índice correctas::«5.2 Capturas de la interfaz web» no está en la página que indica el índice. (p. 17)
+::error file=entregas/entrega.pdf,title=TIT-02 Páginas del índice correctas::«5.4 Bitácora y repositorio» no está en la página que indica el índice. (p. 18)
+::error file=entregas/entrega.pdf,title=TIT-02 Páginas del índice correctas::«6. Bibliografía» no está en la página que indica el índice. (p. 18)
+::error file=entregas/entrega.pdf,title=FIG-03 Posición del epígrafe::El epígrafe de la Tabla 2 está arriba. (p. 8)
+::error file=entregas/entrega.pdf,title=FIG-03 Posición del epígrafe::El epígrafe de la Tabla 5 está arriba. (p. 12)
+::error file=entregas/entrega.pdf,title=FIG-07 Tablas con epígrafe::Hay una tabla sin epígrafe (o un bloque que parece tabla). (p. 4)
+::error file=entregas/entrega.pdf,title=FIG-07 Tablas con epígrafe::Hay una tabla sin epígrafe (o un bloque que parece tabla). (p. 4)
+::error file=entregas/entrega.pdf,title=FIG-07 Tablas con epígrafe::Hay una tabla sin epígrafe (o un bloque que parece tabla). (p. 7)
+::error file=entregas/entrega.pdf,title=FIG-07 Tablas con epígrafe::Hay una tabla sin epígrafe (o un bloque que parece tabla). (p. 7)
+::error file=entregas/entrega.pdf,title=FIG-07 Tablas con epígrafe::Hay una tabla sin epígrafe (o un bloque que parece tabla). (p. 7)
+::error file=entregas/entrega.pdf,title=FIG-07 Tablas con epígrafe::Hay una tabla sin epígrafe (o un bloque que parece tabla). (p. 8)
+::error file=entregas/entrega.pdf,title=FIG-07 Tablas con epígrafe::Hay una tabla sin epígrafe (o un bloque que parece tabla). (p. 8)
+::error file=entregas/entrega.pdf,title=FIG-07 Tablas con epígrafe::Hay una tabla sin epígrafe (o un bloque que parece tabla). (p. 12)
+::error file=entregas/entrega.pdf,title=FIG-07 Tablas con epígrafe::Hay una tabla sin epígrafe (o un bloque que parece tabla). (p. 15)
+::warning file=entregas/entrega.pdf,title=LEN-01 Persona gramatical y voseo::Posible verbo 1ª persona plural (candidato): tomamos. (p. 3)
+prolijito: entregas/entrega.pdf — perfil unlp-tp2@1.0.0 — ❌ con 25 errores y 2 puntos a revisar
