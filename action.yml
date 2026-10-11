@@ -1,0 +1,37 @@
+name: prolijito
+description: Valida el formato de informes PDF contra un perfil (norma), sin tocar el contenido.
+author: festradax07
+branding:
+  icon: check-square
+  color: green
+
+inputs:
+  profile:
+    description: ID de un perfil incluido (informe-tecnico-es, unlp-tp2) o ruta a un .yaml del repo.
+    required: true
+  path:
+    description: Archivo PDF o carpeta donde buscar PDFs (recursivo).
+    required: true
+  profiles-dir:
+    description: Carpeta del repo con perfiles propios.
+    required: false
+    default: ""
+  fail-on:
+    description: "Desde qué severidad falla el paso: error | revisar | never."
+    required: false
+    default: error
+  report-dir:
+    description: Carpeta donde se guarda un reporte JSON por PDF (para subir como artifact).
+    required: false
+    default: prolijito-reportes
+
+runs:
+  using: docker
+  image: Dockerfile
+  entrypoint: /usr/local/bin/prolijito-action
+  args:
+    - ${{ inputs.profile }}
+    - ${{ inputs.path }}
+    - ${{ inputs.profiles-dir }}
+    - ${{ inputs.fail-on }}
+    - ${{ inputs.report-dir }}

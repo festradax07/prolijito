@@ -1,0 +1,11 @@
+# Solo entra a la imagen lo que copia el Dockerfile.
+*
+!pyproject.toml
+!README.md
+!LICENSE
+!src/
+!third_party/
+!profiles/
+!scripts/action-entrypoint.sh
+**/__pycache__
+**/*.egg-info

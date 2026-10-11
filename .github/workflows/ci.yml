@@ -22,3 +22,56 @@ jobs:
           cache: pip
       - run: pip install -e '.[dev]'
       - run: make check
+      - name: Tests de sistema (poppler + PDFs de prueba)
+        run: |
+          sudo apt-get update -qq && sudo apt-get install -y -qq poppler-utils
+          pytest -m system --no-cov
+
+  imagen:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: shellcheck
+        run: shellcheck scripts/*.sh tests/fixtures/pdf/build.sh
+      - name: Build
+        run: docker build -t prolijito:ci .
+      - name: Definición de terminado del MVP
+        working-directory: tests/fixtures/pdf
+        run: |
+          run() { docker run --rm -u "$(id -u):$(id -g)" -v "$PWD:/work" prolijito:ci "$@"; }
+          run --version
+          run check cumple.pdf --profile unlp-tp2
+          set +e
+          run check interlineado-simple.pdf --profile unlp-tp2 --format json > simple.json
+          code=$?
+          set -e
+          test "$code" -eq 1
+          grep -q '"id": "TIP-03"' simple.json
+
+  action:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Un PDF que cumple pasa
+        uses: ./
+        with:
+          profile: unlp-tp2
+          path: tests/fixtures/pdf/cumple.pdf
+      - name: Un PDF con interlineado simple falla
+        id: simple
+        continue-on-error: true
+        uses: ./
+        with:
+          profile: unlp-tp2
+          path: tests/fixtures/pdf/interlineado-simple.pdf
+          report-dir: reportes-simple
+      - name: Verificar resultados
+        run: |
+          test "${{ steps.simple.outcome }}" = failure
+          ls prolijito-reportes/*.json reportes-simple/*.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: reportes-de-ejemplo
+          path: |
+            prolijito-reportes/
+            reportes-simple/

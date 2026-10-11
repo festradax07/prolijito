@@ -22,25 +22,40 @@ En desarrollo, camino al MVP: `prolijito check` sobre PDF, en la terminal y como
 | `prolijito profiles` | ✅ |
 | Reportes Markdown, JSON y anotaciones de GitHub, con «cómo arreglar» por herramienta | ✅ |
 | `prolijito check` de punta a punta | ✅ |
-| Imagen Docker, instalador y GitHub Action | ⏳ |
+| Imagen Docker, instalador (`prolijito` / `plj`) y GitHub Action | ✅ |
+| Imagen publicada en GHCR (hoy se construye localmente con `--build`) | ⏳ |
 | `fix`, `review`, `new` | ⏳ fases siguientes |
 
-## Instalación (desde el código fuente)
+## Instalación
 
-Requisitos: Python 3.11 o superior y, para medir PDFs, `poppler-utils` (`pdftohtml`, `pdftotext`,
-`pdfinfo`).
+### Con Docker (recomendada)
+
+Requisito: [Docker](https://docs.docker.com/get-docker/). La imagen trae poppler y las fuentes, así
+que el resultado es el mismo en cualquier máquina.
 
 ```bash
-sudo apt install poppler-utils        # Debian/Ubuntu; en macOS: brew install poppler
 git clone https://github.com/festradax07/prolijito.git
 cd prolijito
-python3 -m venv .venv
-source .venv/bin/activate
-pip install -e .
+scripts/install.sh --build        # construye la imagen e instala `prolijito` y `plj` en ~/.local/bin
 prolijito --version
 ```
 
-Más adelante la forma recomendada va a ser la imagen Docker, que trae poppler y las fuentes.
+`--build` construye la imagen desde el repo; cuando esté publicada, `scripts/install.sh` sin
+opciones la va a descargar. Otras opciones: `--bin-dir DIR`, `--image IMAGEN` (ver `--help`).
+
+El wrapper monta la **carpeta actual**: el PDF y los perfiles propios tienen que estar dentro de la
+carpeta desde la que se ejecuta.
+
+### Desde el código fuente (para desarrollar)
+
+Requisitos: Python 3.11 o superior y `poppler-utils` (`pdftohtml`, `pdftotext`, `pdfinfo`).
+
+```bash
+sudo apt install poppler-utils        # Debian/Ubuntu; en macOS: brew install poppler
+python3 -m venv .venv
+source .venv/bin/activate
+pip install -e .
+```
 
 ## Uso
 
@@ -87,6 +102,48 @@ El reporte completo de ejemplo está en
 
 Exit codes: `0` sin errores · `1` hay violaciones de severidad `error` (o la que indique
 `--fail-on`) · `2` error de ejecución (archivo inexistente, perfil inválido, dependencia faltante).
+
+## GitHub Action
+
+Valida los PDFs de un PR: anota cada problema, agrega el reporte al resumen del job, deja un JSON
+por PDF y hace fallar el paso si hay errores. Ejemplo para validar las entregas en cada PR a la rama
+`entregas`:
+
+```yaml
+# .github/workflows/formato.yml
+name: formato
+on:
+  pull_request:
+    branches: [entregas]
+permissions:
+  contents: read
+jobs:
+  prolijito:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: festradax07/prolijito@main
+        with:
+          profile: unlp-tp2
+          path: entregas/            # un PDF o una carpeta (recursivo)
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: reportes-de-formato
+          path: prolijito-reportes/
+```
+
+| Input | Por defecto | Para qué |
+|---|---|---|
+| `profile` | — | ID de un perfil incluido o ruta a un `.yaml` del repo. |
+| `path` | — | PDF o carpeta con PDFs. |
+| `profiles-dir` | | Carpeta del repo con perfiles propios. |
+| `fail-on` | `error` | `error`, `revisar` o `never`. |
+| `report-dir` | `prolijito-reportes` | Dónde se guardan los reportes JSON. |
+
+Para que un PR no se pueda mergear con errores, marcar el job como obligatorio en la protección de
+la rama (*Settings → Branches → Require status checks*). La acción no necesita permisos de
+escritura. Hoy la imagen se construye en cada ejecución (1-2 minutos).
 
 ## Perfiles
 
@@ -153,13 +210,19 @@ corresponde.
 make install        # pip install -e '.[dev]' y hook de pre-commit
 make check          # ruff + mypy --strict + import-linter + pytest
 make format         # formatea y aplica fixes automáticos
+make test-system    # tests con poppler sobre los PDFs de prueba
+make image          # docker build -t prolijito:dev .
+make fixtures-pdf   # regenera los PDFs de prueba desde tests/fixtures/pdf/informe.typ (Typst en Docker)
 ```
 
 - Arquitectura hexagonal (`domain` → `validate` → `application` → `adapters`/`report` → `cli`). La
   CI falla si una capa importa de una superior. Ver [ADR 0005](docs/adr/0005-arquitectura-hexagonal-y-calidad.md).
 - Los tests corren sin poppler usando mediciones guardadas en `tests/fixtures/`. Los que necesitan
-  dependencias de sistema llevan `@pytest.mark.system`: `pytest -m system` mide los PDFs que haya
-  en `docs/doc_test/` (carpeta ignorada por git, para documentos reales que no se suben).
+  dependencias de sistema llevan `@pytest.mark.system`: verifican un PDF que cumple la rúbrica
+  (exit 0) y otro con interlineado simple (exit 1, TIP-03), y miden los PDFs que haya en
+  `docs/doc_test/` (carpeta ignorada por git, para documentos reales que no se suben).
+- La CI corre lint, tipos, capas y tests en Python 3.11 y 3.12, construye la imagen, verifica la
+  definición de terminado dentro de Docker y ejecuta la propia Action.
 - Las decisiones de diseño están en [`docs/adr/`](docs/adr/).
 
 ## Créditos

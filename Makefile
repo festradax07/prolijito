@@ -1,4 +1,4 @@
-.PHONY: install format lint typecheck imports test check
+.PHONY: install format lint typecheck imports test test-system check image fixtures-pdf
 
 install:
 	pip install -e '.[dev]'
@@ -22,3 +22,12 @@ test:
 	pytest -m "not system"
 
 check: lint typecheck imports test
+
+test-system:
+	pytest -m system --no-cov
+
+image:
+	docker build -t prolijito:dev .
+
+fixtures-pdf:
+	tests/fixtures/pdf/build.sh
