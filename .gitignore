@@ -1,0 +1,39 @@
+# Documentos internos del proyecto (no se publican)
+CLAUDE.md
+CLAUDE.local.md
+MVP.md
+.claude/
+
+# Documentos reales y reportes generados: nunca al repo (los fixtures propios sí)
+*.pdf
+!tests/fixtures/**/*.pdf
+*_chequeo.md
+reporte.json
+
+# Perfiles privados
+perfiles-privados/
+
+# Secretos
+.env
+.env.*
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+build/
+dist/
+
+# Herramientas
+.ruff_cache/
+.mypy_cache/
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Editor / SO
+.vscode/
+.idea/
+.DS_Store
