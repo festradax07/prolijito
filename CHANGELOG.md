@@ -1,7 +1,18 @@
 # Cambios
 
 Formato basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/); versiones con
-[SemVer](https://semver.org/lang/es/). Para la GitHub Action, usar el tag: `festradax07/prolijito@v0.2.0`.
+[SemVer](https://semver.org/lang/es/). Para la GitHub Action, usar el tag: `festradax07/prolijito@v0.3.0`.
+
+## [0.3.0] — 2026-10-11
+
+### Agregado
+- Imagen publicada en GHCR: `ghcr.io/festradax07/prolijito` (amd64 y arm64), con las etiquetas
+  `X.Y.Z`, `X.Y` y `latest`. La publica el workflow `release` al crear un tag de versión, después de
+  verificar que el tag coincide con la versión del paquete y de probar la imagen con los PDFs de prueba.
+
+### Cambiado
+- `scripts/install.sh` descarga la imagen publicada de la misma versión que el repo clonado
+  (antes había que usar `--build`). `--build` sigue disponible para construirla localmente.
 
 ## [0.2.0] — 2026-10-11
 

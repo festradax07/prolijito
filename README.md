@@ -23,7 +23,7 @@ En desarrollo, camino al MVP: `prolijito check` sobre PDF, en la terminal y como
 | Reportes Markdown, JSON y anotaciones de GitHub, con «cómo arreglar» por herramienta | ✅ |
 | `prolijito check` de punta a punta | ✅ |
 | Imagen Docker, instalador (`prolijito` / `plj`) y GitHub Action | ✅ |
-| Imagen publicada en GHCR (hoy se construye localmente con `--build`) | ⏳ |
+| Imagen publicada en GHCR (`ghcr.io/festradax07/prolijito`, amd64 y arm64) | ✅ |
 | `fix`, `review`, `new` | ⏳ fases siguientes |
 
 ## Instalación
@@ -34,14 +34,24 @@ Requisito: [Docker](https://docs.docker.com/get-docker/). La imagen trae poppler
 que el resultado es el mismo en cualquier máquina.
 
 ```bash
-git clone https://github.com/festradax07/prolijito.git
+git clone --branch v0.3.0 https://github.com/festradax07/prolijito.git
 cd prolijito
-scripts/install.sh --build        # construye la imagen e instala `prolijito` y `plj` en ~/.local/bin
+scripts/install.sh                # descarga la imagen 0.3.0 e instala `prolijito` y `plj` en ~/.local/bin
 prolijito --version
 ```
 
-`--build` construye la imagen desde el repo; cuando esté publicada, `scripts/install.sh` sin
-opciones la va a descargar. Otras opciones: `--bin-dir DIR`, `--image IMAGEN` (ver `--help`).
+El instalador descarga la imagen de la misma versión que el repo clonado, así la instalación es
+reproducible. Otras opciones (`scripts/install.sh --help`): `--build` construye la imagen localmente
+desde el repo, `--image IMAGEN` usa otra imagen y `--bin-dir DIR` instala en otra carpeta.
+
+Sin instalar nada, también se puede usar la imagen directamente:
+
+```bash
+docker run --rm -v "$PWD:/work" -w /work -u "$(id -u):$(id -g)" \
+  ghcr.io/festradax07/prolijito:0.3.0 check informe.pdf --profile unlp-tp2
+```
+
+Etiquetas publicadas: `0.3.0` (fija), `0.3` (la última corrección de 0.3) y `latest`.
 
 El wrapper monta la **carpeta actual**: el PDF y los perfiles propios tienen que estar dentro de la
 carpeta desde la que se ejecuta.
@@ -123,7 +133,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: festradax07/prolijito@v0.2.0
+      - uses: festradax07/prolijito@v0.3.0
         with:
           profile: unlp-tp2
           path: entregas/            # un PDF o una carpeta (recursivo)
@@ -162,7 +172,7 @@ el PR: se calcula la lista con `git diff` y se pasa en `path`, un PDF por línea
             git diff --name-only --diff-filter=AMR "$BASE"...HEAD -- 'docs/entregas/*.pdf'
             echo "EOF"
           } >> "$GITHUB_OUTPUT"
-      - uses: festradax07/prolijito@v0.2.0
+      - uses: festradax07/prolijito@v0.3.0
         if: steps.pdfs.outputs.lista != ''
         with:
           profile: unlp-tp2

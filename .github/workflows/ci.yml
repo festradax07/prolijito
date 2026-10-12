@@ -80,7 +80,7 @@ jobs:
           test "${{ steps.simple.outcome }}" = failure
           test "${{ steps.varios.outcome }}" = failure
           ls prolijito-reportes/*.json reportes-simple/*.json
-          test "$(ls reportes-varios/*.json | wc -l)" -eq 2
+          test "$(find reportes-varios -name "*.json" | wc -l)" -eq 2
       - uses: actions/upload-artifact@v4
         with:
           name: reportes-de-ejemplo

@@ -1,7 +1,8 @@
 #!/usr/bin/env sh
 # Instala `prolijito` y el alias `plj` como wrappers de `docker run`.
 #
-#   scripts/install.sh                 usa la imagen publicada (o la de $PROLIJITO_IMAGE)
+#   scripts/install.sh                 descarga la imagen publicada en GHCR, de la misma versión que
+#                                      esta copia del repo (o la de $PROLIJITO_IMAGE / --image)
 #   scripts/install.sh --build         construye la imagen desde esta copia del repo (prolijito:local)
 #   scripts/install.sh --bin-dir DIR   instala en DIR (por defecto: ~/.local/bin)
 #
@@ -9,7 +10,11 @@
 # le pasan tienen que estar dentro de la carpeta desde la que se ejecuta.
 set -eu
 
-IMAGE="${PROLIJITO_IMAGE:-ghcr.io/festradax07/prolijito:latest}"
+REGISTRY_IMAGE="ghcr.io/festradax07/prolijito"
+REPO="$(cd "$(dirname "$0")/.." && pwd)"
+# Versión de esta copia del repo: la instalación es reproducible (no depende de :latest).
+VERSION="$(sed -n 's/^__version__ = "\(.*\)"$/\1/p' "$REPO/src/prolijito/__init__.py" 2>/dev/null || true)"
+IMAGE="${PROLIJITO_IMAGE:-$REGISTRY_IMAGE:${VERSION:-latest}}"
 BIN_DIR="${PROLIJITO_BIN_DIR:-$HOME/.local/bin}"
 BUILD=0
 
@@ -39,7 +44,6 @@ docker info >/dev/null 2>&1 \
   || fail "Docker está instalado pero no responde. Verificar que el servicio esté iniciado y que el usuario tenga permisos (grupo docker)."
 
 if [ "$BUILD" -eq 1 ]; then
-  REPO="$(cd "$(dirname "$0")/.." && pwd)"
   [ -f "$REPO/Dockerfile" ] || fail "--build se usa desde una copia del repo (no se encontró $REPO/Dockerfile)."
   IMAGE="prolijito:local"
   echo "Construyendo $IMAGE desde $REPO..."
@@ -47,7 +51,7 @@ if [ "$BUILD" -eq 1 ]; then
 else
   echo "Descargando $IMAGE..."
   docker pull "$IMAGE" \
-    || fail "no se pudo descargar $IMAGE. Si la imagen todavía no está publicada, usar --build desde una copia del repo."
+    || fail "no se pudo descargar $IMAGE. Verificar la conexión, o construir la imagen localmente con --build."
 fi
 
 mkdir -p "$BIN_DIR"
