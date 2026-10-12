@@ -6,11 +6,9 @@ from pathlib import Path
 import pytest
 
 from prolijito import __version__, cli
-from prolijito.adapters.cathedra_measurer import parse_measurements
 from prolijito.cli import ExitCode, main, run
 from prolijito.domain import Measurements
-
-FIXTURE = Path(__file__).parent / "fixtures" / "mediciones" / "tp2-informe-avance.json"
+from tests.stored_pdfs import stored_measurements
 
 
 def test_version_prints_package_version(capsys: pytest.CaptureFixture[str]) -> None:
@@ -152,7 +150,7 @@ def test_missing_profiles_dir_is_execution_error(
 
 class FixtureMeasurer:
     def measure(self, document: Path) -> Measurements:
-        return parse_measurements(json.loads(FIXTURE.read_text(encoding="utf-8")))
+        return stored_measurements("con-errores")
 
 
 @pytest.fixture

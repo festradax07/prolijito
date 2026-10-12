@@ -4,7 +4,7 @@
 !README.md
 !LICENSE
 !src/
-!third_party/
+!NOTICE.md
 !profiles/
 !scripts/action-entrypoint.sh
 **/__pycache__

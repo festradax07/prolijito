@@ -47,10 +47,11 @@ def test_builtin_unlp_tp2_matches_the_rubric() -> None:
     assert profile.layout.size_tolerance_pt == 0.6
     assert profile.layout.line_spacing is LineSpacingClass.ONE_AND_HALF
     assert profile.layout.justified
-    assert profile.layout.caption_position is CaptionPosition.BELOW
+    assert profile.layout.figure_captions is CaptionPosition.BELOW
+    assert profile.layout.table_captions is CaptionPosition.BELOW
     assert profile.structure.figure_index is Requirement.IF_CONTENT
     assert profile.structure.appendix is Requirement.OPTIONAL
-    assert profile.norm_source == "third_party/formato-entregas/rubrica.md"
+    assert profile.norm_source == "profiles/normas/unlp-tp2-rubrica.md"
 
 
 def test_builtin_base_profile_is_lenient() -> None:
@@ -201,3 +202,27 @@ def test_builtin_dir_can_be_overridden(monkeypatch: pytest.MonkeyPatch, tmp_path
     monkeypatch.setenv(PROFILES_ENV_VAR, str(tmp_path))
 
     assert builtin_profiles_dir() == tmp_path
+
+
+def test_caption_position_by_kind_and_cover_page(
+    tmp_path: Path, repo: YamlProfileRepository
+) -> None:
+    write(
+        tmp_path,
+        "seminario",
+        "layout:\n  epigrafes: { tablas: arriba }\nestructura:\n  caratula_pagina: 2",
+    )
+
+    profile = repo.load("seminario")
+
+    assert profile.layout.table_captions is CaptionPosition.ABOVE
+    assert profile.layout.figure_captions is CaptionPosition.BELOW
+    assert profile.structure.cover_max_page == 2
+    assert profile.structure.toc is Requirement.REQUIRED  # el resto de la estructura se hereda
+
+
+def test_invalid_caption_position_object(tmp_path: Path, repo: YamlProfileRepository) -> None:
+    write(tmp_path, "malo2", "layout:\n  epigrafes: { cuadros: arriba }")
+
+    with pytest.raises(ProfileError, match=r"layout\.epigrafes"):
+        repo.load("malo2")

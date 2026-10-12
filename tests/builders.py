@@ -57,7 +57,7 @@ def a_profile(**changes: Any) -> Profile:
 
 def a_structure(**changes: Any) -> Structure:
     structure = Structure(
-        cover_on_first_page=True,
+        cover_page=1,
         toc=PRESENT,
         figure_index=PRESENT,
         table_index=PRESENT,

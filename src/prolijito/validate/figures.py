@@ -28,7 +28,7 @@ def check_figures(m: Measurements, p: Profile) -> Iterator[Violation]:
         CaptionKind.TABLE: m.structure.table_index.present,
     }
     for caption in c.items:
-        yield from _position(caption, p.layout.caption_position)
+        yield from _position(caption, p.layout.caption_position(caption.kind))
         yield from _referenced(caption)
         # Sin el índice, ya lo marca EST-03/EST-04: no se repite por cada epígrafe.
         if indexes[caption.kind]:
@@ -47,7 +47,7 @@ def check_figures(m: Measurements, p: Profile) -> Iterator[Violation]:
 
 
 def _label(caption: Caption) -> str:
-    return f"{_NAMES[caption.kind].capitalize()} {caption.number}"
+    return f"{_NAMES[caption.kind].capitalize()} {caption.label}"
 
 
 def _position(caption: Caption, position: CaptionPosition) -> Iterator[Violation]:

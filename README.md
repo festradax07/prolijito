@@ -16,7 +16,7 @@ En desarrollo, camino al MVP: `prolijito check` sobre PDF, en la terminal y como
 
 | Parte | Estado |
 |---|---|
-| Medición de PDF (con el script de la cátedra de TP2) | ✅ |
+| Medidor de PDF propio (fork del de la cátedra de TP2): tipografía, estructura, índice, tablas y figuras | ✅ |
 | 22 reglas de formato (`TIP`, `EST`, `TIT`, `FIG`, `LEN`) | ✅ |
 | Perfiles YAML con herencia, plantilla para perfiles propios | ✅ |
 | `prolijito profiles` | ✅ |
@@ -98,7 +98,8 @@ Ejemplo de reporte (recortado):
 ```
 
 El reporte completo de ejemplo está en
-[`tests/report/snapshots/tp2-informe-avance.md`](tests/report/snapshots/tp2-informe-avance.md).
+[`tests/report/snapshots/con-errores.md`](tests/report/snapshots/con-errores.md), sobre un PDF de prueba
+con errores a propósito.
 
 Exit codes: `0` sin errores · `1` hay violaciones de severidad `error` (o la que indique
 `--fail-on`) · `2` error de ejecución (archivo inexistente, perfil inválido, dependencia faltante).
@@ -122,7 +123,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: festradax07/prolijito@v0.1.0
+      - uses: festradax07/prolijito@v0.2.0
         with:
           profile: unlp-tp2
           path: entregas/            # un PDF o una carpeta (recursivo)
@@ -161,7 +162,7 @@ el PR: se calcula la lista con `git diff` y se pasa en `path`, un PDF por línea
             git diff --name-only --diff-filter=AMR "$BASE"...HEAD -- 'docs/entregas/*.pdf'
             echo "EOF"
           } >> "$GITHUB_OUTPUT"
-      - uses: festradax07/prolijito@v0.1.0
+      - uses: festradax07/prolijito@v0.2.0
         if: steps.pdfs.outputs.lista != ''
         with:
           profile: unlp-tp2
@@ -181,26 +182,61 @@ escritura. Hoy la imagen se construye en cada ejecución (1-2 minutos).
 | Perfil | Para qué |
 |---|---|
 | `informe-tecnico-es` | Base genérica y permisiva para informes técnicos en español. Pensada para extenderse. |
-| `unlp-tp2` | Entregas de Taller de Proyecto II (UNLP). Extiende la base con la [rúbrica de la cátedra](third_party/formato-entregas/rubrica.md): Arial, Times New Roman o Libertinus 12 pt, interlineado 1,5, justificado, epígrafes debajo e índices de figuras y tablas si las hay. |
+| `unlp-tp2` | Entregas de Taller de Proyecto II (UNLP). Extiende la base con la [rúbrica de la cátedra](profiles/normas/unlp-tp2-rubrica.md): Arial, Times New Roman o Libertinus 12 pt, interlineado 1,5, justificado, epígrafes debajo e índices de figuras y tablas si las hay. |
 
 ### Crear un perfil propio
 
+Cada norma (una cátedra, una empresa, una revista) es un archivo YAML. No hace falta escribirlo
+desde cero: prolijito genera una plantilla comentada que hereda de un perfil existente.
+
 ```bash
-prolijito profiles --template mi-catedra > mi-catedra.yaml
-# editar mi-catedra.yaml
-prolijito check informe.pdf --profile mi-catedra.yaml
-prolijito check informe.pdf --profile mi-catedra --profiles-dir ./perfiles
+prolijito profiles --template seminario > seminario.yaml   # 1. plantilla
+# 2. editar seminario.yaml: solo lo que difiere de la norma de la que hereda
+prolijito check informe.pdf --profile seminario.yaml       # 3. usarlo por ruta
+prolijito check informe.pdf --profile seminario --profiles-dir perfiles/   # o por nombre
 ```
 
-La plantilla viene comentada. Lo importante:
+`prolijito profiles --help` repite estos pasos. Ejemplo: un seminario que sigue APA, con una carta
+de presentación antes de la carátula y los epígrafes de tabla arriba:
 
-- **El `id` es el nombre del archivo**: `mi-catedra` vive en `mi-catedra.yaml`.
-- **Herencia con `extends: <perfil>@<versión mayor>`**: solo se escribe lo que cambia; las listas
-  del hijo reemplazan a las del padre.
-- **Severidades**: cualquier regla se puede bajar o subir de severidad, por ejemplo
-  `severidades: { LEN-01: info }`.
-- Los perfiles con normas internas (de una empresa, de un cliente) se guardan fuera de este repo y se
-  usan con `--profiles-dir`.
+```yaml
+id: seminario                    # igual al nombre del archivo: seminario.yaml
+version: 1.0.0
+extends: informe-tecnico-es@1    # hereda todo lo que no se escribe acá
+descripcion: Informes del Seminario de redacción
+layout:
+  fuentes: [Arial, Times New Roman]
+  tamano_cuerpo_pt: 12
+  tolerancia_tamano_pt: 0.6
+  interlineado: "1,5"
+  justificado: true
+  epigrafes: { figuras: debajo, tablas: arriba }
+estructura:
+  caratula: true
+  caratula_pagina: 2             # antes va la carta de presentación
+severidades:
+  TIT-03: info                   # bajar una regla a informativa
+```
+
+Referencia de campos (los de `layout` y `estructura` que no se escriben se heredan):
+
+| Campo | Valores | Para qué |
+|---|---|---|
+| `id` | kebab-case | Igual al nombre del archivo. |
+| `version` | `1.0.0` | Subir el major si un documento que pasaba deja de pasar. |
+| `extends` | `<perfil>@<major>` | Perfil del que hereda (`prolijito profiles` muestra los disponibles). |
+| `layout.fuentes`, `layout.equivalentes` | lista | Familias permitidas en el cuerpo y sus equivalentes métricos. |
+| `layout.tamano_cuerpo_pt`, `layout.tolerancia_tamano_pt` | número | Tamaño del cuerpo; la tolerancia de 0,6 cubre la precisión de la medición. |
+| `layout.interlineado` | `simple`, `"1,5"`, `doble` | Se mide en el PDF: el «1,15» de Google Docs da simple. |
+| `layout.justificado` | `true`, `false` | `false`: no se verifica. |
+| `layout.epigrafes` | `debajo`, `arriba` o `{ figuras: …, tablas: … }` | Posición del epígrafe, para todo o por tipo. |
+| `estructura.caratula`, `indice`, `bibliografia`, `anexo` | `true`, `false`, `opcional` | `opcional` informa si falta, sin error. |
+| `estructura.indice_figuras`, `indice_tablas` | además `si_hay_figuras`, `si_hay_tablas` | Obligatorio solo si el documento tiene figuras o tablas. |
+| `estructura.caratula_pagina` | entero (por defecto 1) | Hasta qué página puede estar la carátula. |
+| `severidades` | `{ ID: error \| revisar \| info }` | Cambiar la severidad de cualquier regla. |
+
+Las listas del hijo reemplazan a las del padre (no se suman). Los perfiles con normas internas (de
+una empresa, de un cliente) se guardan fuera de este repo y se usan con `--profiles-dir`.
 
 ## Reglas
 
@@ -243,12 +279,13 @@ make check          # ruff + mypy --strict + import-linter + pytest
 make format         # formatea y aplica fixes automáticos
 make test-system    # tests con poppler sobre los PDFs de prueba
 make image          # docker build -t prolijito:dev .
-make fixtures-pdf   # regenera los PDFs de prueba desde tests/fixtures/pdf/informe.typ (Typst en Docker)
+make fixtures-pdf   # regenera los PDFs de prueba (Typst en Docker) y su salida de poppler
 ```
 
 - Arquitectura hexagonal (`domain` → `validate` → `application` → `adapters`/`report` → `cli`). La
   CI falla si una capa importa de una superior. Ver [ADR 0005](docs/adr/0005-arquitectura-hexagonal-y-calidad.md).
-- Los tests corren sin poppler usando mediciones guardadas en `tests/fixtures/`. Los que necesitan
+- Los tests miden los PDFs de prueba a partir de la salida de poppler guardada en
+  `tests/fixtures/pdf/poppler/`, así corren sin poppler. Los que necesitan
   dependencias de sistema llevan `@pytest.mark.system`: verifican un PDF que cumple la rúbrica
   (exit 0) y otro con interlineado simple (exit 1, TIP-03), y miden los PDFs que haya en
   `docs/doc_test/` (carpeta ignorada por git, para documentos reales que no se suben).
@@ -258,13 +295,18 @@ make fixtures-pdf   # regenera los PDFs de prueba desde tests/fixtures/pdf/infor
 
 ## Créditos
 
-La medición de PDF usa el script y la rúbrica de la cátedra **Taller de Proyecto II** (Ingeniería en
-Computación, UNLP), incluidos sin modificaciones en [`third_party/formato-entregas/`](third_party/formato-entregas/).
+El medidor de PDF de prolijito (`src/prolijito/adapters/pdf/`) es un fork de `analizar_pdf.py`, de
+la cátedra **Taller de Proyecto II** (Ingeniería en Computación, UNLP), publicado en
+[tpII/ia-guidelines-taller](https://github.com/tpII/ia-guidelines-taller). Parte del mismo método de
+medición sobre poppler y suma mejoras propias (ver
+[ADR 0008](docs/adr/0008-fork-del-medidor-de-la-catedra.md)). La rúbrica del perfil `unlp-tp2`
+también es de la cátedra ([`profiles/normas/unlp-tp2-rubrica.md`](profiles/normas/unlp-tp2-rubrica.md)).
+Gracias a la cátedra por publicar sus herramientas.
 
 ## Licencia
 
 [AGPL-3.0-or-later](./LICENSE). Si se ofrece prolijito como servicio en red, hay que publicar el
 código fuente de esa versión, modificaciones incluidas.
 
-`third_party/formato-entregas/` conserva su propia licencia MIT (ver
-[`third_party/formato-entregas/LICENSE`](./third_party/formato-entregas/LICENSE)).
+Las partes derivadas del trabajo de la cátedra conservan su licencia MIT original (ver
+[`NOTICE.md`](./NOTICE.md)).

@@ -14,8 +14,8 @@ from enum import IntEnum
 from pathlib import Path
 
 from prolijito import __version__
-from prolijito.adapters.cathedra_measurer import CathedraMeasurer
 from prolijito.adapters.fix_catalog import YamlFixCatalog
+from prolijito.adapters.pdf import PdfMeasurer
 from prolijito.adapters.yaml_profiles import (
     YamlProfileRepository,
     builtin_profiles_dir,
@@ -32,9 +32,15 @@ PROG = "prolijito"
 REPORT_FORMATS = tuple(RENDERERS)
 FAIL_ON = {"error": Severity.ERROR, "revisar": Severity.REVIEW, "never": None}
 CUSTOM_PROFILE_HINT = """\
-Perfil propio:
-  prolijito profiles --template mi-perfil > mi-perfil.yaml
-  prolijito check informe.pdf --profile mi-perfil.yaml"""
+Crear un perfil propio (una norma de una cátedra, una empresa o una revista):
+  1. prolijito profiles --template mi-perfil > mi-perfil.yaml
+     Genera una plantilla comentada que hereda de un perfil existente.
+  2. Editar mi-perfil.yaml: cambiar solo lo que difiere (fuentes, interlineado,
+     epígrafes, carátula, severidades). El archivo se llama igual que su id.
+  3. prolijito check informe.pdf --profile mi-perfil.yaml
+     o, con varios perfiles en una carpeta: --profile mi-perfil --profiles-dir perfiles/
+
+Perfiles disponibles: prolijito profiles"""
 
 
 class ExitCode(IntEnum):
@@ -79,7 +85,7 @@ def _check(args: argparse.Namespace) -> ExitCode:
 
 
 def _measurer() -> Measurer:
-    return CathedraMeasurer()
+    return PdfMeasurer()
 
 
 def _write_report(report: str, output: Path | None) -> None:
@@ -193,14 +199,20 @@ def _build_parser() -> argparse.ArgumentParser:
     new.add_argument("profile", help="ID del perfil.")
     new.add_argument("destination", type=Path, help="Archivo a crear.")
 
-    profiles = _add_command(commands, "profiles", "Lista los perfiles disponibles.", _profiles)
+    profiles = _add_command(
+        commands,
+        "profiles",
+        "Lista los perfiles y genera la plantilla para crear uno propio (--template).",
+        _profiles,
+    )
     _add_profiles_dir(profiles)
     profiles.add_argument(
         "--template",
         nargs="?",
         const="mi-perfil",
         metavar="ID",
-        help="Imprime una plantilla comentada para crear un perfil propio con ese id.",
+        help="Imprime una plantilla comentada para un perfil propio con ese id "
+        "(por defecto: mi-perfil). Redirigirla a un archivo: > ID.yaml",
     )
     return parser
 

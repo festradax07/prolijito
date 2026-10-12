@@ -1,6 +1,6 @@
 # 0006. Adaptador del medidor de la cátedra y sus compensaciones
 
-- Estado: Aceptada
+- Estado: Reemplazada por el ADR 0008
 - Fecha: 2026-10-11
 
 ## Contexto

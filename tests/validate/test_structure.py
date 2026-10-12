@@ -1,3 +1,5 @@
+from dataclasses import replace
+
 import pytest
 
 from prolijito.domain import (
@@ -15,12 +17,31 @@ FIGURE = Caption(CaptionKind.FIGURE, 1, 3, "Figura 1", below=True, text_referenc
 TABLE = Caption(CaptionKind.TABLE, 1, 4, "Tabla 1", below=True, text_references=1, in_index=True)
 
 
-def test_est01_first_page_is_not_a_cover() -> None:
-    [violation] = evaluate(
-        a_document(structure=a_structure(cover_on_first_page=False)), a_profile()
-    )
+def test_est01_without_cover() -> None:
+    [violation] = evaluate(a_document(structure=a_structure(cover_page=None)), a_profile())
 
     assert (violation.rule_id, violation.page) == ("EST-01", 1)
+    assert "No se encontró una carátula" in violation.message
+
+
+def test_est01_cover_after_the_allowed_page() -> None:
+    [violation] = evaluate(a_document(structure=a_structure(cover_page=2)), a_profile())
+
+    assert (violation.rule_id, violation.page, violation.measured) == ("EST-01", 2, "página 2")
+    assert violation.expected == "carátula sola en la página 1"
+
+
+def test_est01_cover_page_comes_from_the_profile() -> None:
+    profile = a_profile()
+    profile = replace(profile, structure=replace(profile.structure, cover_max_page=2))
+
+    assert evaluate(a_document(structure=a_structure(cover_page=2)), profile) == ()
+
+
+def test_optional_section_message_has_no_article() -> None:
+    [violation] = evaluate(a_document(structure=a_structure(appendix=ABSENT)), a_profile())
+
+    assert violation.message == "No hay anexo (es opcional)."
 
 
 @pytest.mark.parametrize(("rule_id", "field"), [("EST-02", "toc"), ("EST-05", "bibliography")])
@@ -60,7 +81,17 @@ def test_est06_missing_optional_appendix_is_info() -> None:
 
 
 def test_not_required_section_is_silent() -> None:
-    profile = a_profile(structure=StructureRequirements(*[Requirement.NOT_REQUIRED] * 6))
-    doc = a_document(structure=a_structure(cover_on_first_page=False, toc=ABSENT, appendix=ABSENT))
+    not_required = Requirement.NOT_REQUIRED
+    profile = a_profile(
+        structure=StructureRequirements(
+            cover=not_required,
+            toc=not_required,
+            figure_index=not_required,
+            table_index=not_required,
+            bibliography=not_required,
+            appendix=not_required,
+        )
+    )
+    doc = a_document(structure=a_structure(cover_page=None, toc=ABSENT, appendix=ABSENT))
 
     assert evaluate(doc, profile) == ()

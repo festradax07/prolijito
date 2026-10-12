@@ -24,10 +24,11 @@ layout:
   tolerancia_tamano_pt: 0.6           # margen de medición; menos de 0,5 da falsos positivos
   interlineado: "1,5"                 # simple | 1,5 | doble
   justificado: true                   # false: no se verifica
-  epigrafes: debajo                   # debajo | arriba
+  epigrafes: debajo                   # debajo | arriba, o por tipo: { figuras: debajo, tablas: arriba }
 
 # estructura:                         # true | false | opcional
 #   caratula: true
+#   caratula_pagina: 1                # hasta qué página puede estar (2 si antes va una carta)
 #   indice: true
 #   indice_figuras: si_hay_figuras    # o true | false | opcional
 #   indice_tablas: si_hay_tablas      # o true | false | opcional

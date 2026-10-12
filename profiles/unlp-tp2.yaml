@@ -4,7 +4,7 @@ id: unlp-tp2
 version: 1.0.0
 extends: informe-tecnico-es@1
 descripcion: Entregas de Taller de Proyecto II (UNLP)
-fuente_norma: third_party/formato-entregas/rubrica.md
+fuente_norma: profiles/normas/unlp-tp2-rubrica.md
 
 layout:
   fuentes: [Arial, Times New Roman, Libertinus]           # §5: Calibri, Cambria, Computer Modern no

@@ -67,16 +67,16 @@ def _line_spacing(m: Measurements, p: Profile) -> Iterator[Violation]:
             measured=measured,
             autofixable=True,
         )
-    elif spacing.deviant_pages and spacing.deviant_from is expected:
+    elif deviant := spacing.pages_not(expected):
         yield Violation(
             "TIP-03",
             Severity.ERROR,
-            f"Hay páginas con otro interlineado: {pages(spacing.deviant_pages)}.",
-            page=spacing.deviant_pages[0],
+            f"Hay páginas con otro interlineado: {pages(deviant)}.",
+            page=deviant[0],
             expected=expected.value,
             measured=measured,
             autofixable=True,
-            occurrences=tuple(Occurrence(n, "") for n in spacing.deviant_pages),
+            occurrences=tuple(Occurrence(n) for n in deviant),
         )
 
 
@@ -108,7 +108,7 @@ def _justification(m: Measurements, p: Profile) -> Iterator[Violation]:
             page=doubtful[0] if doubtful else None,
             expected="justificado",
             measured=measured,
-            occurrences=tuple(Occurrence(n, "") for n in doubtful),
+            occurrences=tuple(Occurrence(n) for n in doubtful),
         )
 
 

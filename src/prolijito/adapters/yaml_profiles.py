@@ -195,7 +195,8 @@ def _to_profile(raw: Raw) -> Profile:
             size_tolerance_pt=float(layout["tolerancia_tamano_pt"]),
             line_spacing=LineSpacingClass(layout["interlineado"]),
             justified=bool(layout["justificado"]),
-            caption_position=CaptionPosition(layout.get("epigrafes", "debajo")),
+            figure_captions=_caption_position(layout, "figuras"),
+            table_captions=_caption_position(layout, "tablas"),
         ),
         structure=StructureRequirements(
             cover=_REQUIREMENTS[structure["caratula"]],
@@ -204,7 +205,16 @@ def _to_profile(raw: Raw) -> Profile:
             table_index=_REQUIREMENTS[structure["indice_tablas"]],
             bibliography=_REQUIREMENTS[structure["bibliografia"]],
             appendix=_REQUIREMENTS[structure["anexo"]],
+            cover_max_page=int(structure.get("caratula_pagina", 1)),
         ),
         severity_overrides={k: Severity(v) for k, v in raw.get("severidades", {}).items()},
         norm_source=raw.get("fuente_norma"),
     )
+
+
+def _caption_position(layout: Raw, kind: str) -> CaptionPosition:
+    """`epigrafes: debajo` vale para todo; `epigrafes: {tablas: arriba}` distingue por tipo."""
+    value = layout.get("epigrafes", "debajo")
+    if isinstance(value, dict):
+        value = value.get(kind, "debajo")
+    return CaptionPosition(value)

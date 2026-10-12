@@ -1,0 +1,108 @@
+Informe con errores de prueba
+
+
+   Estación meteorológica de bajo costo
+
+
+
+
+             Grupo de ejemplo
+
+
+             1 de enero de 2026
+
+
+
+
+                     1
+Índice
+1. Introducción ......................................................................................................................................... 1
+
+2. Desarrollo ............................................................................................................................................. 1
+
+3. Resultados ............................................................................................................................................. 3
+
+4. Trabajo futuro ...................................................................................................................................... 4
+
+
+
+
+                                                                             2
+1. Introducción
+En este trabajo decidimos usar nuestro propio sensor de humedad para reducir el costo total.
+La estación mide temperatura, humedad y presión cada cinco minutos y publica las lecturas
+en un servidor central que las almacena como series de tiempo. El diseño prioriza el bajo
+costo y el consumo reducido, de modo que el equipo funcione con una batería pequeña y un
+panel solar durante varias semanas sin mantenimiento. Las lecturas se validan contra una
+estación de referencia ubicada en el mismo predio, y las diferencias se registran para calibrar
+los sensores antes de cada campaña de medición en el campo. La estación mide temperatura,
+humedad y presión cada cinco minutos y publica las lecturas en un servidor central que las
+almacena como series de tiempo. El diseño prioriza el bajo costo y el consumo reducido, de
+modo que el equipo funcione con una batería pequeña y un panel solar durante varias semanas
+sin mantenimiento. Las lecturas se validan contra una estación de referencia ubicada en el
+mismo predio, y las diferencias se registran para calibrar los sensores antes de cada campaña
+de medición en el campo.
+
+2. Desarrollo
+La estación mide temperatura, humedad y presión cada cinco minutos y publica las lecturas en
+un servidor central que las almacena como series de tiempo. El diseño prioriza el bajo costo y el
+consumo reducido, de modo que el equipo funcione con una batería pequeña y un panel solar
+durante varias semanas sin mantenimiento. Las lecturas se validan contra una estación de
+referencia ubicada en el mismo predio, y las diferencias se registran para calibrar los sensores
+antes de cada campaña de medición en el campo.
+
+                               Tabla 1: Materiales del prototipo
+         Componente                        Cantidad                          Costo
+           Sensor                             3                             USD 20
+            Placa                             1                             USD 15
+           Fuente                             1                             USD 10
+
+La estación mide temperatura, humedad y presión cada cinco minutos y publica las lecturas en
+un servidor central que las almacena como series de tiempo. El diseño prioriza el bajo costo y el
+consumo reducido, de modo que el equipo funcione con una batería pequeña y un panel solar
+durante varias semanas sin mantenimiento. Las lecturas se validan contra una estación de
+referencia ubicada en el mismo predio, y las diferencias se registran para calibrar los sensores
+antes de cada campaña de medición en el campo. El firmware lee los sensores con el siguiente
+bucle:
+
+while true:
+    temperatura = sensor_temperatura.leer()
+
+
+                                               3
+    humedad = sensor_humedad.leer()
+    presion = sensor_presion.leer()
+    publicar(servidor, temperatura, humedad, presion)
+    esperar(minutos=5)
+
+La estación mide temperatura, humedad y presión cada cinco minutos y publica las lecturas en
+un servidor central que las almacena como series de tiempo. El diseño prioriza el bajo costo y el
+consumo reducido, de modo que el equipo funcione con una batería pequeña y un panel solar
+durante varias semanas sin mantenimiento. Las lecturas se validan contra una estación de
+referencia ubicada en el mismo predio, y las diferencias se registran para calibrar los sensores
+antes de cada campaña de medición en el campo.
+
+3. Resultados
+La estación mide temperatura, humedad y presión cada cinco minutos y publica las lecturas en
+un servidor central que las almacena como series de tiempo. El diseño prioriza el bajo costo y el
+consumo reducido, de modo que el equipo funcione con una batería pequeña y un panel solar
+durante varias semanas sin mantenimiento. Las lecturas se validan contra una estación de
+referencia ubicada en el mismo predio, y las diferencias se registran para calibrar los sensores
+antes de cada campaña de medición en el campo. La estación mide temperatura, humedad y
+presión cada cinco minutos y publica las lecturas en un servidor central que las almacena como
+series de tiempo. El diseño prioriza el bajo costo y el consumo reducido, de modo que el equipo
+funcione con una batería pequeña y un panel solar durante varias semanas sin mantenimiento.
+Las lecturas se validan contra una estación de referencia ubicada en el mismo predio, y las
+diferencias se registran para calibrar los sensores antes de cada campaña de medición en el
+campo. La estación mide temperatura, humedad y presión cada cinco minutos y publica las
+lecturas en un servidor central que las almacena como series de tiempo. El diseño prioriza el
+bajo costo y el consumo reducido, de modo que el equipo funcione con una batería pequeña y
+un panel solar durante varias semanas sin mantenimiento. Las lecturas se validan contra una
+estación de referencia ubicada en el mismo predio, y las diferencias se registran para calibrar
+los sensores antes de cada campaña de medición en el campo.
+
+
+
+
+                                               4
+

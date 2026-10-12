@@ -5,7 +5,7 @@ ARG PYTHON_IMAGE=python:3.12-slim@sha256:a6e34c598f2467ed0e9a8d349809fcd8b5c6032
 # ---------- build: instala el paquete en un venv (solo wheels, sin compiladores) ----------
 FROM ${PYTHON_IMAGE} AS build
 WORKDIR /src
-COPY pyproject.toml README.md LICENSE ./
+COPY pyproject.toml README.md LICENSE NOTICE.md ./
 COPY src ./src
 RUN python -m venv /opt/venv \
     && /opt/venv/bin/pip install --no-cache-dir --disable-pip-version-check .
@@ -25,12 +25,10 @@ RUN apt-get update \
     && fc-cache -f
 
 COPY --from=build /opt/venv /opt/venv
-COPY third_party/formato-entregas /opt/prolijito/third_party/formato-entregas
 COPY profiles /opt/prolijito/profiles
 COPY scripts/action-entrypoint.sh /usr/local/bin/prolijito-action
 
 ENV PATH="/opt/venv/bin:${PATH}" \
-    PROLIJITO_CATHEDRA_SCRIPT=/opt/prolijito/third_party/formato-entregas/analizar_pdf.py \
     PROLIJITO_PROFILES_DIR=/opt/prolijito/profiles \
     PYTHONDONTWRITEBYTECODE=1 \
     PYTHONUNBUFFERED=1 \

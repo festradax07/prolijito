@@ -1,0 +1,165 @@
+Informe técnico de prueba
+
+
+Sistema de monitoreo de consumo eléctrico
+
+
+
+
+             Grupo de ejemplo
+
+
+         Integrante A · Integrante B
+
+
+             1 de enero de 2026
+
+
+
+
+                     1
+Índice
+1. Introducción . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 3
+2. Arquitectura . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 3
+     2.1. Hardware . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 4
+     2.2. Software . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 4
+3. Pruebas y resultados . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 4
+4. Conclusiones . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 5
+Bibliografía . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 6
+
+
+
+
+                                                                                            2
+1. Introducción
+El sistema registra el consumo eléctrico de cada circuito de un edificio y presenta los datos en
+un panel web que se actualiza cada minuto. La medición se realiza con sensores de corriente no
+invasivos conectados a un microcontrolador, que envía las lecturas a un servidor central por
+medio de una red inalámbrica. El servidor almacena las series de tiempo, calcula promedios
+por hora y por día, y genera alertas cuando un circuito supera el umbral configurado para su
+uso habitual. Este documento describe el alcance del proyecto, la arquitectura propuesta, el
+plan de pruebas y los resultados obtenidos durante la etapa de validación en el laboratorio. El
+sistema registra el consumo eléctrico de cada circuito de un edificio y presenta los datos en un
+panel web que se actualiza cada minuto. La medición se realiza con sensores de corriente no
+invasivos conectados a un microcontrolador, que envía las lecturas a un servidor central por
+medio de una red inalámbrica. El servidor almacena las series de tiempo, calcula promedios
+por hora y por día, y genera alertas cuando un circuito supera el umbral configurado para su
+uso habitual. Este documento describe el alcance del proyecto, la arquitectura propuesta, el
+plan de pruebas y los resultados obtenidos durante la etapa de validación en el laboratorio. El
+sistema registra el consumo eléctrico de cada circuito de un edificio y presenta los datos en un
+panel web que se actualiza cada minuto. La medición se realiza con sensores de corriente no
+invasivos conectados a un microcontrolador, que envía las lecturas a un servidor central por
+medio de una red inalámbrica. El servidor almacena las series de tiempo, calcula promedios
+por hora y por día, y genera alertas cuando un circuito supera el umbral configurado para su
+uso habitual. Este documento describe el alcance del proyecto, la arquitectura propuesta, el
+plan de pruebas y los resultados obtenidos durante la etapa de validación en el laboratorio.
+
+2. Arquitectura
+El sistema registra el consumo eléctrico de cada circuito de un edificio y presenta los datos en
+un panel web que se actualiza cada minuto. La medición se realiza con sensores de corriente no
+invasivos conectados a un microcontrolador, que envía las lecturas a un servidor central por
+medio de una red inalámbrica. El servidor almacena las series de tiempo, calcula promedios
+por hora y por día, y genera alertas cuando un circuito supera el umbral configurado para su
+uso habitual. Este documento describe el alcance del proyecto, la arquitectura propuesta, el
+plan de pruebas y los resultados obtenidos durante la etapa de validación en el laboratorio. El
+sistema registra el consumo eléctrico de cada circuito de un edificio y presenta los datos en un
+panel web que se actualiza cada minuto. La medición se realiza con sensores de corriente no
+invasivos conectados a un microcontrolador, que envía las lecturas a un servidor central por
+medio de una red inalámbrica. El servidor almacena las series de tiempo, calcula promedios
+por hora y por día, y genera alertas cuando un circuito supera el umbral configurado para su
+
+
+
+                                               3
+uso habitual. Este documento describe el alcance del proyecto, la arquitectura propuesta, el
+plan de pruebas y los resultados obtenidos durante la etapa de validación en el laboratorio.
+
+2.1. Hardware
+El sistema registra el consumo eléctrico de cada circuito de un edificio y presenta los datos en
+un panel web que se actualiza cada minuto. La medición se realiza con sensores de corriente no
+invasivos conectados a un microcontrolador, que envía las lecturas a un servidor central por
+medio de una red inalámbrica. El servidor almacena las series de tiempo, calcula promedios
+por hora y por día, y genera alertas cuando un circuito supera el umbral configurado para su
+uso habitual. Este documento describe el alcance del proyecto, la arquitectura propuesta, el
+plan de pruebas y los resultados obtenidos durante la etapa de validación en el laboratorio. El
+sistema registra el consumo eléctrico de cada circuito de un edificio y presenta los datos en un
+panel web que se actualiza cada minuto. La medición se realiza con sensores de corriente no
+invasivos conectados a un microcontrolador, que envía las lecturas a un servidor central por
+medio de una red inalámbrica. El servidor almacena las series de tiempo, calcula promedios
+por hora y por día, y genera alertas cuando un circuito supera el umbral configurado para su
+uso habitual. Este documento describe el alcance del proyecto, la arquitectura propuesta, el
+plan de pruebas y los resultados obtenidos durante la etapa de validación en el laboratorio.
+
+2.2. Software
+El sistema registra el consumo eléctrico de cada circuito de un edificio y presenta los datos en
+un panel web que se actualiza cada minuto. La medición se realiza con sensores de corriente no
+invasivos conectados a un microcontrolador, que envía las lecturas a un servidor central por
+medio de una red inalámbrica. El servidor almacena las series de tiempo, calcula promedios
+por hora y por día, y genera alertas cuando un circuito supera el umbral configurado para su
+uso habitual. Este documento describe el alcance del proyecto, la arquitectura propuesta, el
+plan de pruebas y los resultados obtenidos durante la etapa de validación en el laboratorio. El
+sistema registra el consumo eléctrico de cada circuito de un edificio y presenta los datos en un
+panel web que se actualiza cada minuto. La medición se realiza con sensores de corriente no
+invasivos conectados a un microcontrolador, que envía las lecturas a un servidor central por
+medio de una red inalámbrica. El servidor almacena las series de tiempo, calcula promedios
+por hora y por día, y genera alertas cuando un circuito supera el umbral configurado para su
+uso habitual. Este documento describe el alcance del proyecto, la arquitectura propuesta, el
+plan de pruebas y los resultados obtenidos durante la etapa de validación en el laboratorio.
+
+3. Pruebas y resultados
+El sistema registra el consumo eléctrico de cada circuito de un edificio y presenta los datos en
+un panel web que se actualiza cada minuto. La medición se realiza con sensores de corriente no
+
+
+                                               4
+invasivos conectados a un microcontrolador, que envía las lecturas a un servidor central por
+medio de una red inalámbrica. El servidor almacena las series de tiempo, calcula promedios
+por hora y por día, y genera alertas cuando un circuito supera el umbral configurado para su
+uso habitual. Este documento describe el alcance del proyecto, la arquitectura propuesta, el
+plan de pruebas y los resultados obtenidos durante la etapa de validación en el laboratorio. El
+sistema registra el consumo eléctrico de cada circuito de un edificio y presenta los datos en un
+panel web que se actualiza cada minuto. La medición se realiza con sensores de corriente no
+invasivos conectados a un microcontrolador, que envía las lecturas a un servidor central por
+medio de una red inalámbrica. El servidor almacena las series de tiempo, calcula promedios
+por hora y por día, y genera alertas cuando un circuito supera el umbral configurado para su
+uso habitual. Este documento describe el alcance del proyecto, la arquitectura propuesta, el
+plan de pruebas y los resultados obtenidos durante la etapa de validación en el laboratorio. El
+sistema registra el consumo eléctrico de cada circuito de un edificio y presenta los datos en un
+panel web que se actualiza cada minuto. La medición se realiza con sensores de corriente no
+invasivos conectados a un microcontrolador, que envía las lecturas a un servidor central por
+medio de una red inalámbrica. El servidor almacena las series de tiempo, calcula promedios
+por hora y por día, y genera alertas cuando un circuito supera el umbral configurado para su
+uso habitual. Este documento describe el alcance del proyecto, la arquitectura propuesta, el
+plan de pruebas y los resultados obtenidos durante la etapa de validación en el laboratorio.
+
+4. Conclusiones
+El sistema registra el consumo eléctrico de cada circuito de un edificio y presenta los datos en
+un panel web que se actualiza cada minuto. La medición se realiza con sensores de corriente no
+invasivos conectados a un microcontrolador, que envía las lecturas a un servidor central por
+medio de una red inalámbrica. El servidor almacena las series de tiempo, calcula promedios
+por hora y por día, y genera alertas cuando un circuito supera el umbral configurado para su
+uso habitual. Este documento describe el alcance del proyecto, la arquitectura propuesta, el
+plan de pruebas y los resultados obtenidos durante la etapa de validación en el laboratorio. El
+sistema registra el consumo eléctrico de cada circuito de un edificio y presenta los datos en un
+panel web que se actualiza cada minuto. La medición se realiza con sensores de corriente no
+invasivos conectados a un microcontrolador, que envía las lecturas a un servidor central por
+medio de una red inalámbrica. El servidor almacena las series de tiempo, calcula promedios
+por hora y por día, y genera alertas cuando un circuito supera el umbral configurado para su
+uso habitual. Este documento describe el alcance del proyecto, la arquitectura propuesta, el
+plan de pruebas y los resultados obtenidos durante la etapa de validación en el laboratorio.
+
+
+
+
+                                               5
+Bibliografía
+Autor de ejemplo. Medición de corriente con sensores no invasivos. Editorial de ejemplo, 2024.
+
+Organización de ejemplo. Guía de redes inalámbricas para sensores. Consultado el 1 de enero
+de 2026.
+
+
+
+
+                                              6
+

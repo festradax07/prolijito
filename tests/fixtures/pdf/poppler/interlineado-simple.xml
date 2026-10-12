@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pdf2xml SYSTEM "pdf2xml.dtd">
+
+<pdf2xml producer="poppler" version="24.02.0">
+<page number="1" position="absolute" top="0" left="0" height="2525" width="1785">
+	<fontspec id="0" size="60" family="QARDNQ+LibertinusSerif" color="#000000"/>
+	<fontspec id="1" size="42" family="GNKDKE+LibertinusSerif" color="#000000"/>
+	<fontspec id="2" size="36" family="GNKDKE+LibertinusSerif" color="#000000"/>
+<text top="538" left="535" width="717" height="68" font="0"><b>Informe técnico de prueba</b></text>
+<text top="742" left="520" width="745" height="48" font="1">Sistema de monitoreo de consumo eléctrico</text>
+<text top="1078" left="761" width="263" height="41" font="2">Grupo de ejemplo</text>
+<text top="1189" left="695" width="396" height="41" font="2">Integrante A · Integrante B</text>
+<text top="1301" left="757" width="271" height="41" font="2">1 de enero de 2026</text>
+<text top="2368" left="885" width="17" height="41" font="2">1</text>
+</page>
+<page number="2" position="absolute" top="0" left="0" height="2525" width="1785">
+	<fontspec id="3" size="50" family="QARDNQ+LibertinusSerif" color="#000000"/>
+<text top="200" left="213" width="142" height="57" font="3"><b>Índice</b></text>
+<text top="264" left="213" width="1361" height="41" font="2"><a href="interlineado-simple.html#3">1. Introducción . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 3</a></text>
+<text top="311" left="213" width="1361" height="41" font="2"><a href="interlineado-simple.html#3">2. Arquitectura . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 3</a></text>
+<text top="358" left="255" width="1318" height="41" font="2"><a href="interlineado-simple.html#3">2.1. Hardware . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 3</a></text>
+<text top="405" left="255" width="1318" height="41" font="2"><a href="interlineado-simple.html#4">2.2. Software . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 4</a></text>
+<text top="452" left="213" width="1361" height="41" font="2"><a href="interlineado-simple.html#4">3. Pruebas y resultados . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 4</a></text>
+<text top="499" left="213" width="1361" height="41" font="2"><a href="interlineado-simple.html#5">4. Conclusiones . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 5</a></text>
+<text top="546" left="213" width="1361" height="41" font="2"><a href="interlineado-simple.html#5">Bibliografía . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 5</a></text>
+<text top="2368" left="885" width="17" height="41" font="2">2</text>
+</page>
+<page number="3" position="absolute" top="0" left="0" height="2525" width="1785">
+	<fontspec id="4" size="43" family="QARDNQ+LibertinusSerif" color="#000000"/>
+<text top="200" left="213" width="350" height="57" font="3"><b>1. Introducción</b></text>
+<text top="264" left="213" width="1361" height="41" font="2">El sistema registra el consumo eléctrico de cada circuito de un edificio y presenta los datos en</text>
+<text top="311" left="213" width="1361" height="41" font="2">un panel web que se actualiza cada minuto. La medición se realiza con sensores de corriente no</text>
+<text top="358" left="213" width="1361" height="41" font="2">invasivos conectados a un microcontrolador, que envía las lecturas a un servidor central por</text>
+<text top="405" left="213" width="1361" height="41" font="2">medio de una red inalámbrica. El servidor almacena las series de tiempo, calcula promedios</text>
+<text top="452" left="213" width="1361" height="41" font="2">por hora y por día, y genera alertas cuando un circuito supera el umbral configurado para su</text>
+<text top="499" left="213" width="1361" height="41" font="2">uso habitual. Este documento describe el alcance del proyecto, la arquitectura propuesta, el</text>
+<text top="546" left="213" width="1361" height="41" font="2">plan de pruebas y los resultados obtenidos durante la etapa de validación en el laboratorio. El</text>
+<text top="593" left="213" width="1361" height="41" font="2">sistema registra el consumo eléctrico de cada circuito de un edificio y presenta los datos en un</text>
+<text top="640" left="213" width="1361" height="41" font="2">panel web que se actualiza cada minuto. La medición se realiza con sensores de corriente no</text>
+<text top="687" left="213" width="1361" height="41" font="2">invasivos conectados a un microcontrolador, que envía las lecturas a un servidor central por</text>
+<text top="734" left="213" width="1361" height="41" font="2">medio de una red inalámbrica. El servidor almacena las series de tiempo, calcula promedios</text>
+<text top="782" left="213" width="1361" height="41" font="2">por hora y por día, y genera alertas cuando un circuito supera el umbral configurado para su</text>
+<text top="829" left="213" width="1361" height="41" font="2">uso habitual. Este documento describe el alcance del proyecto, la arquitectura propuesta, el</text>
+<text top="876" left="213" width="1361" height="41" font="2">plan de pruebas y los resultados obtenidos durante la etapa de validación en el laboratorio. El</text>
+<text top="923" left="213" width="1361" height="41" font="2">sistema registra el consumo eléctrico de cada circuito de un edificio y presenta los datos en un</text>
+<text top="970" left="213" width="1361" height="41" font="2">panel web que se actualiza cada minuto. La medición se realiza con sensores de corriente no</text>
+<text top="1017" left="213" width="1361" height="41" font="2">invasivos conectados a un microcontrolador, que envía las lecturas a un servidor central por</text>
+<text top="1064" left="213" width="1361" height="41" font="2">medio de una red inalámbrica. El servidor almacena las series de tiempo, calcula promedios</text>
+<text top="1111" left="213" width="1361" height="41" font="2">por hora y por día, y genera alertas cuando un circuito supera el umbral configurado para su</text>
+<text top="1158" left="213" width="1361" height="41" font="2">uso habitual. Este documento describe el alcance del proyecto, la arquitectura propuesta, el</text>
+<text top="1205" left="213" width="1330" height="41" font="2">plan de pruebas y los resultados obtenidos durante la etapa de validación en el laboratorio.</text>
+<text top="1290" left="213" width="348" height="57" font="3"><b>2. Arquitectura</b></text>
+<text top="1353" left="213" width="1361" height="41" font="2">El sistema registra el consumo eléctrico de cada circuito de un edificio y presenta los datos en</text>
+<text top="1400" left="213" width="1361" height="41" font="2">un panel web que se actualiza cada minuto. La medición se realiza con sensores de corriente no</text>
+<text top="1448" left="213" width="1361" height="41" font="2">invasivos conectados a un microcontrolador, que envía las lecturas a un servidor central por</text>
+<text top="1495" left="213" width="1361" height="41" font="2">medio de una red inalámbrica. El servidor almacena las series de tiempo, calcula promedios</text>
+<text top="1542" left="213" width="1361" height="41" font="2">por hora y por día, y genera alertas cuando un circuito supera el umbral configurado para su</text>
+<text top="1589" left="213" width="1361" height="41" font="2">uso habitual. Este documento describe el alcance del proyecto, la arquitectura propuesta, el</text>
+<text top="1636" left="213" width="1361" height="41" font="2">plan de pruebas y los resultados obtenidos durante la etapa de validación en el laboratorio. El</text>
+<text top="1683" left="213" width="1361" height="41" font="2">sistema registra el consumo eléctrico de cada circuito de un edificio y presenta los datos en un</text>
+<text top="1730" left="213" width="1361" height="41" font="2">panel web que se actualiza cada minuto. La medición se realiza con sensores de corriente no</text>
+<text top="1777" left="213" width="1361" height="41" font="2">invasivos conectados a un microcontrolador, que envía las lecturas a un servidor central por</text>
+<text top="1824" left="213" width="1361" height="41" font="2">medio de una red inalámbrica. El servidor almacena las series de tiempo, calcula promedios</text>
+<text top="1871" left="213" width="1361" height="41" font="2">por hora y por día, y genera alertas cuando un circuito supera el umbral configurado para su</text>
+<text top="1918" left="213" width="1361" height="41" font="2">uso habitual. Este documento describe el alcance del proyecto, la arquitectura propuesta, el</text>
+<text top="1966" left="213" width="1330" height="41" font="2">plan de pruebas y los resultados obtenidos durante la etapa de validación en el laboratorio.</text>
+<text top="2039" left="213" width="273" height="49" font="4"><b>2.1. Hardware</b></text>
+<text top="2096" left="213" width="1361" height="41" font="2">El sistema registra el consumo eléctrico de cada circuito de un edificio y presenta los datos en</text>
+<text top="2143" left="213" width="1361" height="41" font="2">un panel web que se actualiza cada minuto. La medición se realiza con sensores de corriente no</text>
+<text top="2190" left="213" width="1361" height="41" font="2">invasivos conectados a un microcontrolador, que envía las lecturas a un servidor central por</text>
+<text top="2237" left="213" width="1361" height="41" font="2">medio de una red inalámbrica. El servidor almacena las series de tiempo, calcula promedios</text>
+<text top="2368" left="885" width="17" height="41" font="2">3</text>
+</page>
+<page number="4" position="absolute" top="0" left="0" height="2525" width="1785">
+<text top="204" left="213" width="1361" height="41" font="2">por hora y por día, y genera alertas cuando un circuito supera el umbral configurado para su</text>
+<text top="251" left="213" width="1361" height="41" font="2">uso habitual. Este documento describe el alcance del proyecto, la arquitectura propuesta, el</text>
+<text top="298" left="213" width="1361" height="41" font="2">plan de pruebas y los resultados obtenidos durante la etapa de validación en el laboratorio. El</text>
+<text top="345" left="213" width="1361" height="41" font="2">sistema registra el consumo eléctrico de cada circuito de un edificio y presenta los datos en un</text>
+<text top="392" left="213" width="1361" height="41" font="2">panel web que se actualiza cada minuto. La medición se realiza con sensores de corriente no</text>
+<text top="440" left="213" width="1361" height="41" font="2">invasivos conectados a un microcontrolador, que envía las lecturas a un servidor central por</text>
+<text top="487" left="213" width="1361" height="41" font="2">medio de una red inalámbrica. El servidor almacena las series de tiempo, calcula promedios</text>
+<text top="534" left="213" width="1361" height="41" font="2">por hora y por día, y genera alertas cuando un circuito supera el umbral configurado para su</text>
+<text top="581" left="213" width="1361" height="41" font="2">uso habitual. Este documento describe el alcance del proyecto, la arquitectura propuesta, el</text>
+<text top="628" left="213" width="1330" height="41" font="2">plan de pruebas y los resultados obtenidos durante la etapa de validación en el laboratorio.</text>
+<text top="701" left="213" width="248" height="49" font="4"><b>2.2. Software</b></text>
+<text top="758" left="213" width="1361" height="41" font="2">El sistema registra el consumo eléctrico de cada circuito de un edificio y presenta los datos en</text>
+<text top="805" left="213" width="1361" height="41" font="2">un panel web que se actualiza cada minuto. La medición se realiza con sensores de corriente no</text>
+<text top="852" left="213" width="1361" height="41" font="2">invasivos conectados a un microcontrolador, que envía las lecturas a un servidor central por</text>
+<text top="900" left="213" width="1361" height="41" font="2">medio de una red inalámbrica. El servidor almacena las series de tiempo, calcula promedios</text>
+<text top="947" left="213" width="1361" height="41" font="2">por hora y por día, y genera alertas cuando un circuito supera el umbral configurado para su</text>
+<text top="994" left="213" width="1361" height="41" font="2">uso habitual. Este documento describe el alcance del proyecto, la arquitectura propuesta, el</text>
+<text top="1041" left="213" width="1361" height="41" font="2">plan de pruebas y los resultados obtenidos durante la etapa de validación en el laboratorio. El</text>
+<text top="1088" left="213" width="1361" height="41" font="2">sistema registra el consumo eléctrico de cada circuito de un edificio y presenta los datos en un</text>
+<text top="1135" left="213" width="1361" height="41" font="2">panel web que se actualiza cada minuto. La medición se realiza con sensores de corriente no</text>
+<text top="1182" left="213" width="1361" height="41" font="2">invasivos conectados a un microcontrolador, que envía las lecturas a un servidor central por</text>
+<text top="1229" left="213" width="1361" height="41" font="2">medio de una red inalámbrica. El servidor almacena las series de tiempo, calcula promedios</text>
+<text top="1276" left="213" width="1361" height="41" font="2">por hora y por día, y genera alertas cuando un circuito supera el umbral configurado para su</text>
+<text top="1323" left="213" width="1361" height="41" font="2">uso habitual. Este documento describe el alcance del proyecto, la arquitectura propuesta, el</text>
+<text top="1370" left="213" width="1330" height="41" font="2">plan de pruebas y los resultados obtenidos durante la etapa de validación en el laboratorio.</text>
+<text top="1455" left="213" width="523" height="57" font="3"><b>3. Pruebas y resultados</b></text>
+<text top="1518" left="213" width="1361" height="41" font="2">El sistema registra el consumo eléctrico de cada circuito de un edificio y presenta los datos en</text>
+<text top="1566" left="213" width="1361" height="41" font="2">un panel web que se actualiza cada minuto. La medición se realiza con sensores de corriente no</text>
+<text top="1613" left="213" width="1361" height="41" font="2">invasivos conectados a un microcontrolador, que envía las lecturas a un servidor central por</text>
+<text top="1660" left="213" width="1361" height="41" font="2">medio de una red inalámbrica. El servidor almacena las series de tiempo, calcula promedios</text>
+<text top="1707" left="213" width="1361" height="41" font="2">por hora y por día, y genera alertas cuando un circuito supera el umbral configurado para su</text>
+<text top="1754" left="213" width="1361" height="41" font="2">uso habitual. Este documento describe el alcance del proyecto, la arquitectura propuesta, el</text>
+<text top="1801" left="213" width="1361" height="41" font="2">plan de pruebas y los resultados obtenidos durante la etapa de validación en el laboratorio. El</text>
+<text top="1848" left="213" width="1361" height="41" font="2">sistema registra el consumo eléctrico de cada circuito de un edificio y presenta los datos en un</text>
+<text top="1895" left="213" width="1361" height="41" font="2">panel web que se actualiza cada minuto. La medición se realiza con sensores de corriente no</text>
+<text top="1942" left="213" width="1361" height="41" font="2">invasivos conectados a un microcontrolador, que envía las lecturas a un servidor central por</text>
+<text top="1989" left="213" width="1361" height="41" font="2">medio de una red inalámbrica. El servidor almacena las series de tiempo, calcula promedios</text>
+<text top="2036" left="213" width="1361" height="41" font="2">por hora y por día, y genera alertas cuando un circuito supera el umbral configurado para su</text>
+<text top="2083" left="213" width="1361" height="41" font="2">uso habitual. Este documento describe el alcance del proyecto, la arquitectura propuesta, el</text>
+<text top="2131" left="213" width="1361" height="41" font="2">plan de pruebas y los resultados obtenidos durante la etapa de validación en el laboratorio. El</text>
+<text top="2178" left="213" width="1361" height="41" font="2">sistema registra el consumo eléctrico de cada circuito de un edificio y presenta los datos en un</text>
+<text top="2225" left="213" width="1361" height="41" font="2">panel web que se actualiza cada minuto. La medición se realiza con sensores de corriente no</text>
+<text top="2272" left="213" width="1361" height="41" font="2">invasivos conectados a un microcontrolador, que envía las lecturas a un servidor central por</text>
+<text top="2368" left="885" width="17" height="41" font="2">4</text>
+</page>
+<page number="5" position="absolute" top="0" left="0" height="2525" width="1785">
+	<fontspec id="5" size="36" family="TYZCBQ+LibertinusSerif" color="#000000"/>
+<text top="204" left="213" width="1361" height="41" font="2">medio de una red inalámbrica. El servidor almacena las series de tiempo, calcula promedios</text>
+<text top="251" left="213" width="1361" height="41" font="2">por hora y por día, y genera alertas cuando un circuito supera el umbral configurado para su</text>
+<text top="298" left="213" width="1361" height="41" font="2">uso habitual. Este documento describe el alcance del proyecto, la arquitectura propuesta, el</text>
+<text top="345" left="213" width="1330" height="41" font="2">plan de pruebas y los resultados obtenidos durante la etapa de validación en el laboratorio.</text>
+<text top="430" left="213" width="360" height="57" font="3"><b>4. Conclusiones</b></text>
+<text top="493" left="213" width="1361" height="41" font="2">El sistema registra el consumo eléctrico de cada circuito de un edificio y presenta los datos en</text>
+<text top="540" left="213" width="1361" height="41" font="2">un panel web que se actualiza cada minuto. La medición se realiza con sensores de corriente no</text>
+<text top="588" left="213" width="1361" height="41" font="2">invasivos conectados a un microcontrolador, que envía las lecturas a un servidor central por</text>
+<text top="635" left="213" width="1361" height="41" font="2">medio de una red inalámbrica. El servidor almacena las series de tiempo, calcula promedios</text>
+<text top="682" left="213" width="1361" height="41" font="2">por hora y por día, y genera alertas cuando un circuito supera el umbral configurado para su</text>
+<text top="729" left="213" width="1361" height="41" font="2">uso habitual. Este documento describe el alcance del proyecto, la arquitectura propuesta, el</text>
+<text top="776" left="213" width="1361" height="41" font="2">plan de pruebas y los resultados obtenidos durante la etapa de validación en el laboratorio. El</text>
+<text top="823" left="213" width="1361" height="41" font="2">sistema registra el consumo eléctrico de cada circuito de un edificio y presenta los datos en un</text>
+<text top="870" left="213" width="1361" height="41" font="2">panel web que se actualiza cada minuto. La medición se realiza con sensores de corriente no</text>
+<text top="917" left="213" width="1361" height="41" font="2">invasivos conectados a un microcontrolador, que envía las lecturas a un servidor central por</text>
+<text top="964" left="213" width="1361" height="41" font="2">medio de una red inalámbrica. El servidor almacena las series de tiempo, calcula promedios</text>
+<text top="1011" left="213" width="1361" height="41" font="2">por hora y por día, y genera alertas cuando un circuito supera el umbral configurado para su</text>
+<text top="1058" left="213" width="1361" height="41" font="2">uso habitual. Este documento describe el alcance del proyecto, la arquitectura propuesta, el</text>
+<text top="1106" left="213" width="1330" height="41" font="2">plan de pruebas y los resultados obtenidos durante la etapa de validación en el laboratorio.</text>
+<text top="1190" left="213" width="272" height="57" font="3"><b>Bibliografía</b></text>
+<text top="1254" left="213" width="271" height="41" font="2">Autor de ejemplo. </text>
+<text top="1254" left="484" width="677" height="41" font="5"><i>Medición de corriente con sensores no invasivos.</i></text>
+<text top="1254" left="1161" width="396" height="41" font="2"> Editorial de ejemplo, 2024.</text>
+<text top="1322" left="213" width="385" height="41" font="2">Organización de ejemplo. </text>
+<text top="1322" left="598" width="597" height="41" font="5"><i>Guía de redes inalámbricas para sensores.</i></text>
+<text top="1322" left="1196" width="378" height="41" font="2"> Consultado el 1 de enero</text>
+<text top="1369" left="213" width="118" height="41" font="2">de 2026.</text>
+<text top="2368" left="885" width="17" height="41" font="2">5</text>
+</page>
+<outline>
+<item page="3">Introducción</item>
+<item page="3">Arquitectura</item>
+<outline>
+<item page="3">Hardware</item>
+<item page="4">Software</item>
+</outline>
+<item page="4">Pruebas y resultados</item>
+<item page="5">Conclusiones</item>
+<item page="5">Bibliografía</item>
+</outline>
+</pdf2xml>

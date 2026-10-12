@@ -54,9 +54,11 @@ class Typography:
 class LineSpacing:
     ratio: float
     spacing_class: LineSpacingClass
-    deviant_pages: tuple[int, ...] = ()
-    deviant_from: LineSpacingClass = LineSpacingClass.ONE_AND_HALF
-    """Clase contra la que se calcularon `deviant_pages` (el medidor de la cátedra solo usa 1,5)."""
+    page_classes: Mapping[int, LineSpacingClass] = field(default_factory=dict)
+    """Clase de cada página con párrafos suficientes para medirla."""
+
+    def pages_not(self, expected: LineSpacingClass) -> tuple[int, ...]:
+        return tuple(sorted(n for n, c in self.page_classes.items() if c is not expected))
 
 
 @dataclass(frozen=True, slots=True)
@@ -104,7 +106,8 @@ class TocCheck:
 
 @dataclass(frozen=True, slots=True)
 class Structure:
-    cover_on_first_page: bool
+    cover_page: int | None
+    """Primera página con aspecto de carátula antes del índice; `None` si no se encontró."""
     toc: Section
     figure_index: Section
     table_index: Section
@@ -126,6 +129,12 @@ class Caption:
     """`None` cuando no se pudo determinar (figura vectorial o en otra página)."""
     text_references: int
     in_index: bool
+    prefix: str = ""
+    """Letra de una numeración de apéndice: «A» en «Figura A1»."""
+
+    @property
+    def label(self) -> str:
+        return f"{self.prefix}{self.number}"
 
 
 @dataclass(frozen=True, slots=True)

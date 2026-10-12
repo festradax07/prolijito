@@ -1,4 +1,4 @@
-"""Snapshots de los reportes sobre las mediciones reales (anonimizadas) de un informe de TP2.
+"""Snapshots de los reportes sobre el PDF de prueba con errores (tests/fixtures/pdf/con-errores).
 
 Para regenerarlos después de un cambio intencional: UPDATE_SNAPSHOTS=1 pytest tests/report
 """
@@ -9,7 +9,6 @@ from pathlib import Path
 
 import pytest
 
-from prolijito.adapters.cathedra_measurer import parse_measurements
 from prolijito.adapters.fix_catalog import YamlFixCatalog
 from prolijito.adapters.yaml_profiles import YamlProfileRepository, builtin_profiles_dir
 from prolijito.domain import CheckResult, Severity, Violation
@@ -17,24 +16,24 @@ from prolijito.report import RENDERERS, render_github, render_json, render_markd
 from prolijito.report.labels import status
 from prolijito.validate import evaluate
 from tests.builders import a_profile
+from tests.stored_pdfs import stored_measurements
 
-FIXTURE = Path(__file__).parents[1] / "fixtures" / "mediciones" / "tp2-informe-avance.json"
 SNAPSHOTS = Path(__file__).parent / "snapshots"
 SUFFIXES = {"md": "md", "json": "json", "github": "txt"}
 
 
 @pytest.fixture(scope="module")
 def tp2_result() -> CheckResult:
-    measurements = parse_measurements(json.loads(FIXTURE.read_text(encoding="utf-8")))
+    measurements = stored_measurements("con-errores")
     profile = YamlProfileRepository([builtin_profiles_dir()]).load("unlp-tp2")
     violations = evaluate(measurements, profile, YamlFixCatalog().how_to_fix())
-    return CheckResult("entregas/entrega.pdf", profile, violations)
+    return CheckResult("entregas/con-errores.pdf", profile, violations)
 
 
 @pytest.mark.parametrize("fmt", list(RENDERERS))
 def test_report_snapshot(tp2_result: CheckResult, fmt: str) -> None:
     rendered = RENDERERS[fmt](tp2_result)
-    snapshot = SNAPSHOTS / f"tp2-informe-avance.{SUFFIXES[fmt]}"
+    snapshot = SNAPSHOTS / f"con-errores.{SUFFIXES[fmt]}"
     if os.environ.get("UPDATE_SNAPSHOTS") or not snapshot.exists():
         snapshot.write_text(rendered, encoding="utf-8")
 

@@ -1,0 +1,181 @@
+{
+  "prolijito": "0.2.0",
+  "documento": "entregas/con-errores.pdf",
+  "perfil": "unlp-tp2@1.0.0",
+  "estado": "con_errores",
+  "resumen": {
+    "error": 6,
+    "revisar": 3,
+    "info": 1
+  },
+  "violaciones": [
+    {
+      "id": "TIP-05",
+      "severidad": "revisar",
+      "categoria": "tipografia",
+      "pagina": null,
+      "esperado": "Arial, Times New Roman, Libertinus",
+      "medido": "DejaVuSansMono",
+      "mensaje": "Se usan otras familias tipográficas: DejaVuSansMono. En código o tablas puede estar bien.",
+      "como_arreglar": {
+        "general": "Usar la fuente del cuerpo en todo el texto; una monoespaciada solo en bloques de código."
+      },
+      "autofixable": false,
+      "ocurrencias": []
+    },
+    {
+      "id": "EST-04",
+      "severidad": "error",
+      "categoria": "estructura",
+      "pagina": null,
+      "esperado": null,
+      "medido": null,
+      "mensaje": "Falta el índice de tablas.",
+      "como_arreglar": {
+        "docs": "No es nativo. Lista a mano con número, leyenda y página, o un complemento de índice con estilo propio para epígrafes.",
+        "word": "Referencias → Insertar tabla de ilustraciones (requiere epígrafes con Insertar título).",
+        "latex": "`\\listoffigures` / `\\listoftables`",
+        "typst": "`#outline(target: figure.where(kind: image))` / `kind: table`"
+      },
+      "autofixable": false,
+      "ocurrencias": []
+    },
+    {
+      "id": "EST-05",
+      "severidad": "error",
+      "categoria": "estructura",
+      "pagina": null,
+      "esperado": null,
+      "medido": null,
+      "mensaje": "Falta la bibliografía.",
+      "como_arreglar": {
+        "general": "Sección «Bibliografía» con autor o título, URL o editorial y fecha de consulta.",
+        "word": "Referencias → Bibliografía.",
+        "latex": "`\\printbibliography` (biblatex) o `\\bibliography{…}`",
+        "typst": "`#bibliography(\"referencias.bib\")`"
+      },
+      "autofixable": false,
+      "ocurrencias": []
+    },
+    {
+      "id": "EST-06",
+      "severidad": "info",
+      "categoria": "estructura",
+      "pagina": null,
+      "esperado": null,
+      "medido": null,
+      "mensaje": "No hay anexo (es opcional).",
+      "como_arreglar": {
+        "general": "Opcional. Para código extenso, datasheets o esquemáticos grandes."
+      },
+      "autofixable": false,
+      "ocurrencias": []
+    },
+    {
+      "id": "TIT-01",
+      "severidad": "error",
+      "categoria": "titulos",
+      "pagina": null,
+      "esperado": "título en p. 4",
+      "medido": "no encontrado",
+      "mensaje": "La entrada del índice «4. Trabajo futuro» no tiene un título en el cuerpo.",
+      "como_arreglar": {
+        "docs": "Insertar → Índice; usar estilos Título 1/2 en los títulos. Para actualizar, clic en el índice → Actualizar.",
+        "word": "Referencias → Tabla de contenido. Para actualizar, clic derecho → Actualizar campos.",
+        "latex": "`\\tableofcontents` (compilar dos veces).",
+        "typst": "`#outline()`"
+      },
+      "autofixable": true,
+      "ocurrencias": []
+    },
+    {
+      "id": "TIT-02",
+      "severidad": "error",
+      "categoria": "titulos",
+      "pagina": 4,
+      "esperado": "p. 3",
+      "medido": "p. 4",
+      "mensaje": "«3. Resultados» no está en la página que indica el índice.",
+      "como_arreglar": {
+        "docs": "Insertar → Índice; usar estilos Título 1/2 en los títulos. Para actualizar, clic en el índice → Actualizar.",
+        "word": "Referencias → Tabla de contenido. Para actualizar, clic derecho → Actualizar campos.",
+        "latex": "`\\tableofcontents` (compilar dos veces).",
+        "typst": "`#outline()`"
+      },
+      "autofixable": true,
+      "ocurrencias": []
+    },
+    {
+      "id": "FIG-03",
+      "severidad": "error",
+      "categoria": "figuras",
+      "pagina": 3,
+      "esperado": "debajo",
+      "medido": "arriba",
+      "mensaje": "El epígrafe de la Tabla 1 está arriba.",
+      "como_arreglar": {
+        "docs": "Párrafo centrado debajo de la figura o tabla, con un estilo propio («Epígrafe») para poder listarlo.",
+        "word": "Referencias → Insertar título → posición «Debajo de la selección».",
+        "latex": "`\\caption` después del `tabular` o `\\includegraphics`; `\\usepackage[spanish,es-tabla]{babel}` para «Tabla».",
+        "typst": "`#show figure.where(kind: table): set figure.caption(position: bottom)`"
+      },
+      "autofixable": true,
+      "ocurrencias": []
+    },
+    {
+      "id": "FIG-04",
+      "severidad": "error",
+      "categoria": "figuras",
+      "pagina": 3,
+      "esperado": null,
+      "medido": null,
+      "mensaje": "La Tabla 1 no se menciona en el texto.",
+      "como_arreglar": {
+        "general": "Mencionar la figura o tabla por su número en el texto («como muestra la Figura 2»).",
+        "word": "Referencias → Referencia cruzada.",
+        "latex": "`\\ref` o `\\autoref`",
+        "typst": "`@etiqueta`"
+      },
+      "autofixable": false,
+      "ocurrencias": []
+    },
+    {
+      "id": "LEN-01",
+      "severidad": "revisar",
+      "categoria": "lenguaje",
+      "pagina": 3,
+      "esperado": "impersonal o tercera persona",
+      "medido": null,
+      "mensaje": "Posible pronombre 1ª/2ª persona: nuestro.",
+      "como_arreglar": {
+        "general": "Reescribir en impersonal («se propone», «se implementó») o en tercera persona («el grupo definió»). Leer la oración completa: puede ser un falso positivo."
+      },
+      "autofixable": false,
+      "ocurrencias": [
+        {
+          "pagina": 3,
+          "texto": "1. Introducción En este trabajo decidimos usar nuestro propio sensor de humedad para reducir el costo total. La es"
+        }
+      ]
+    },
+    {
+      "id": "LEN-01",
+      "severidad": "revisar",
+      "categoria": "lenguaje",
+      "pagina": 3,
+      "esperado": "impersonal o tercera persona",
+      "medido": null,
+      "mensaje": "Posible verbo 1ª persona plural (candidato): decidimos.",
+      "como_arreglar": {
+        "general": "Reescribir en impersonal («se propone», «se implementó») o en tercera persona («el grupo definió»). Leer la oración completa: puede ser un falso positivo."
+      },
+      "autofixable": false,
+      "ocurrencias": [
+        {
+          "pagina": 3,
+          "texto": "1. Introducción En este trabajo decidimos usar nuestro propio sensor de humedad para reducir el costo"
+        }
+      ]
+    }
+  ]
+}

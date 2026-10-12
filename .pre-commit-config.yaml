@@ -1,5 +1,4 @@
 # Usa las herramientas instaladas en el entorno (`make install`), mismas versiones que la CI.
-exclude: ^third_party/
 repos:
   - repo: local
     hooks:

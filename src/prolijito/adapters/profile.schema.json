@@ -4,60 +4,228 @@
   "title": "Perfil de prolijito (con la herencia ya resuelta)",
   "type": "object",
   "additionalProperties": false,
-  "required": ["id", "version", "descripcion", "layout", "estructura"],
+  "required": [
+    "id",
+    "version",
+    "descripcion",
+    "layout",
+    "estructura"
+  ],
   "properties": {
-    "id": { "type": "string", "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$" },
-    "version": { "type": "string", "pattern": "^\\d+\\.\\d+\\.\\d+$" },
-    "extends": { "type": "string", "pattern": "^[a-z0-9]+(-[a-z0-9]+)*@\\d+$" },
-    "descripcion": { "type": "string", "minLength": 1 },
-    "fuente_norma": { "type": ["string", "null"] },
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$"
+    },
+    "version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$"
+    },
+    "extends": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(-[a-z0-9]+)*@\\d+$"
+    },
+    "descripcion": {
+      "type": "string",
+      "minLength": 1
+    },
+    "fuente_norma": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
     "layout": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["fuentes", "tamano_cuerpo_pt", "tolerancia_tamano_pt", "interlineado", "justificado"],
+      "required": [
+        "fuentes",
+        "tamano_cuerpo_pt",
+        "tolerancia_tamano_pt",
+        "interlineado",
+        "justificado"
+      ],
       "properties": {
-        "fuentes": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
-        "equivalentes": { "type": "array", "items": { "type": "string" } },
-        "tamano_cuerpo_pt": { "type": "number", "exclusiveMinimum": 0 },
-        "tolerancia_tamano_pt": { "type": "number", "minimum": 0 },
-        "interlineado": { "enum": ["simple", "1,5", "doble"] },
-        "justificado": { "type": "boolean" },
-        "epigrafes": { "enum": ["debajo", "arriba"] }
+        "fuentes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1
+        },
+        "equivalentes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "tamano_cuerpo_pt": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "tolerancia_tamano_pt": {
+          "type": "number",
+          "minimum": 0
+        },
+        "interlineado": {
+          "enum": [
+            "simple",
+            "1,5",
+            "doble"
+          ]
+        },
+        "justificado": {
+          "type": "boolean"
+        },
+        "epigrafes": {
+          "description": "Posición del epígrafe: una para todo, o por tipo.",
+          "oneOf": [
+            {
+              "enum": [
+                "debajo",
+                "arriba"
+              ]
+            },
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "minProperties": 1,
+              "properties": {
+                "figuras": {
+                  "enum": [
+                    "debajo",
+                    "arriba"
+                  ]
+                },
+                "tablas": {
+                  "enum": [
+                    "debajo",
+                    "arriba"
+                  ]
+                }
+              }
+            }
+          ]
+        }
       }
     },
     "estructura": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["caratula", "indice", "indice_figuras", "indice_tablas", "bibliografia", "anexo"],
+      "required": [
+        "caratula",
+        "indice",
+        "indice_figuras",
+        "indice_tablas",
+        "bibliografia",
+        "anexo"
+      ],
       "properties": {
-        "caratula": { "enum": [true, false, "opcional"] },
-        "indice": { "enum": [true, false, "opcional"] },
-        "indice_figuras": { "enum": [true, false, "opcional", "si_hay_figuras"] },
-        "indice_tablas": { "enum": [true, false, "opcional", "si_hay_tablas"] },
-        "bibliografia": { "enum": [true, false, "opcional"] },
-        "anexo": { "enum": [true, false, "opcional"] }
+        "caratula": {
+          "enum": [
+            true,
+            false,
+            "opcional"
+          ]
+        },
+        "indice": {
+          "enum": [
+            true,
+            false,
+            "opcional"
+          ]
+        },
+        "indice_figuras": {
+          "enum": [
+            true,
+            false,
+            "opcional",
+            "si_hay_figuras"
+          ]
+        },
+        "indice_tablas": {
+          "enum": [
+            true,
+            false,
+            "opcional",
+            "si_hay_tablas"
+          ]
+        },
+        "bibliografia": {
+          "enum": [
+            true,
+            false,
+            "opcional"
+          ]
+        },
+        "anexo": {
+          "enum": [
+            true,
+            false,
+            "opcional"
+          ]
+        },
+        "caratula_pagina": {
+          "description": "Última página en la que puede estar la carátula (por defecto, 1).",
+          "type": "integer",
+          "minimum": 1
+        }
       }
     },
     "lenguaje": {
       "type": "object",
       "additionalProperties": false,
-      "properties": { "persona": { "enum": ["impersonal", "libre"] } }
+      "properties": {
+        "persona": {
+          "enum": [
+            "impersonal",
+            "libre"
+          ]
+        }
+      }
     },
     "referencias": {
       "type": "object",
       "additionalProperties": false,
-      "properties": { "csl": { "type": ["string", "null"] } }
+      "properties": {
+        "csl": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
     },
     "privacidad": {
       "type": "object",
       "additionalProperties": false,
-      "properties": { "modo": { "enum": ["pseudonimizar", "solo_local", "sin_llm"] } }
+      "properties": {
+        "modo": {
+          "enum": [
+            "pseudonimizar",
+            "solo_local",
+            "sin_llm"
+          ]
+        }
+      }
     },
     "severidades": {
       "type": "object",
-      "propertyNames": { "pattern": "^(TIP|EST|TIT|FIG|LEN|REF|PRI)-\\d{2}$" },
-      "additionalProperties": { "enum": ["error", "revisar", "info"] }
+      "propertyNames": {
+        "pattern": "^(TIP|EST|TIT|FIG|LEN|REF|PRI)-\\d{2}$"
+      },
+      "additionalProperties": {
+        "enum": [
+          "error",
+          "revisar",
+          "info"
+        ]
+      }
     },
-    "plantilla": { "type": ["string", "null"] }
+    "plantilla": {
+      "type": [
+        "string",
+        "null"
+      ]
+    }
   }
 }

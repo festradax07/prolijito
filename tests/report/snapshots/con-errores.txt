@@ -1,0 +1,11 @@
+::warning file=entregas/con-errores.pdf,title=TIP-05 Otras familias tipográficas permitidas::Se usan otras familias tipográficas: DejaVuSansMono. En código o tablas puede estar bien.
+::error file=entregas/con-errores.pdf,title=EST-04 Índice de tablas::Falta el índice de tablas.
+::error file=entregas/con-errores.pdf,title=EST-05 Bibliografía::Falta la bibliografía.
+::notice file=entregas/con-errores.pdf,title=EST-06 Anexo::No hay anexo (es opcional).
+::error file=entregas/con-errores.pdf,title=TIT-01 Entradas del índice con su título en el cuerpo::La entrada del índice «4. Trabajo futuro» no tiene un título en el cuerpo.
+::error file=entregas/con-errores.pdf,title=TIT-02 Páginas del índice correctas::«3. Resultados» no está en la página que indica el índice. (p. 4)
+::error file=entregas/con-errores.pdf,title=FIG-03 Posición del epígrafe::El epígrafe de la Tabla 1 está arriba. (p. 3)
+::error file=entregas/con-errores.pdf,title=FIG-04 Figuras y tablas referenciadas desde el texto::La Tabla 1 no se menciona en el texto. (p. 3)
+::warning file=entregas/con-errores.pdf,title=LEN-01 Persona gramatical y voseo::Posible pronombre 1ª/2ª persona: nuestro. (p. 3)
+::warning file=entregas/con-errores.pdf,title=LEN-01 Persona gramatical y voseo::Posible verbo 1ª persona plural (candidato): decidimos. (p. 3)
+prolijito: entregas/con-errores.pdf — perfil unlp-tp2@1.0.0 — ❌ con 6 errores y 3 puntos a revisar

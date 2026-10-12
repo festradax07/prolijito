@@ -7,7 +7,7 @@ from collections.abc import Mapping
 from dataclasses import dataclass, field
 from enum import StrEnum
 
-from prolijito.domain.measurements import LineSpacingClass
+from prolijito.domain.measurements import CaptionKind, LineSpacingClass
 from prolijito.domain.violation import Severity
 
 PROFILE_ID_PATTERN = re.compile(r"^[a-z0-9]+(-[a-z0-9]+)*$")
@@ -38,7 +38,8 @@ class Layout:
     size_tolerance_pt: float
     line_spacing: LineSpacingClass
     justified: bool
-    caption_position: CaptionPosition = CaptionPosition.BELOW
+    figure_captions: CaptionPosition = CaptionPosition.BELOW
+    table_captions: CaptionPosition = CaptionPosition.BELOW
 
     def allows_font(self, family: str) -> bool:
         allowed = {f.casefold() for f in (*self.fonts, *self.equivalents)}
@@ -46,6 +47,9 @@ class Layout:
 
     def size_within_tolerance(self, size_pt: float) -> bool:
         return abs(size_pt - self.body_size_pt) <= self.size_tolerance_pt
+
+    def caption_position(self, kind: CaptionKind) -> CaptionPosition:
+        return self.table_captions if kind is CaptionKind.TABLE else self.figure_captions
 
 
 @dataclass(frozen=True, slots=True)
@@ -56,6 +60,8 @@ class StructureRequirements:
     table_index: Requirement
     bibliography: Requirement
     appendix: Requirement
+    cover_max_page: int = 1
+    """Última página en la que puede estar la carátula (p. ej., 2 si antes va una carta)."""
 
 
 @dataclass(frozen=True, slots=True)

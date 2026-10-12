@@ -50,11 +50,27 @@ def test_fig03_caption_above_when_below_is_expected() -> None:
 
 
 def test_fig03_caption_below_when_above_is_expected() -> None:
-    profile_layout = a_layout(caption_position=CaptionPosition.ABOVE)
+    profile_layout = a_layout(figure_captions=CaptionPosition.ABOVE)
 
     assert found(Captions(items=(caption(),)), layout=profile_layout) == [
         ("FIG-03", Severity.ERROR)
     ]
+
+
+def test_fig03_position_by_kind() -> None:
+    """Estilo APA: tablas con el epígrafe arriba, figuras debajo."""
+    apa = a_layout(table_captions=CaptionPosition.ABOVE)
+    table_above = caption(kind=CaptionKind.TABLE, below=False)
+
+    assert found(Captions(items=(caption(), table_above)), layout=apa) == []
+
+
+def test_appendix_label_in_messages() -> None:
+    doc = a_document(captions=Captions(items=(caption(prefix="A", text_references=0),)))
+
+    [violation] = evaluate(doc, a_profile())
+
+    assert violation.message == "La Figura A1 no se menciona en el texto."
 
 
 def test_fig03_unknown_position_needs_review() -> None:

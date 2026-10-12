@@ -58,8 +58,9 @@ def test_tip03_single_spacing_is_an_error() -> None:
     assert violation.measured == "1,33 (simple)"
 
 
-def test_tip03_reports_deviant_pages() -> None:
-    spacing = LineSpacing(1.7, LineSpacingClass.ONE_AND_HALF, deviant_pages=(4, 7))
+def test_tip03_reports_pages_with_another_spacing() -> None:
+    one_half, single = LineSpacingClass.ONE_AND_HALF, LineSpacingClass.SINGLE
+    spacing = LineSpacing(1.7, one_half, page_classes={3: one_half, 4: single, 7: single})
 
     [violation] = evaluate(a_document(line_spacing=spacing), a_profile())
 
@@ -67,11 +68,10 @@ def test_tip03_reports_deviant_pages() -> None:
     assert [o.page for o in violation.occurrences] == [4, 7]
 
 
-def test_tip03_ignores_deviant_pages_computed_against_another_class() -> None:
-    spacing = LineSpacing(
-        2.3, LineSpacingClass.DOUBLE, deviant_pages=(4,), deviant_from=LineSpacingClass.ONE_AND_HALF
-    )
-    profile = a_profile(layout=a_layout(line_spacing=LineSpacingClass.DOUBLE))
+def test_tip03_compares_pages_against_the_profile_class() -> None:
+    double = LineSpacingClass.DOUBLE
+    spacing = LineSpacing(2.3, double, page_classes={3: double, 4: double})
+    profile = a_profile(layout=a_layout(line_spacing=double))
 
     assert evaluate(a_document(line_spacing=spacing), profile) == ()
 
