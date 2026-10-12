@@ -1,3 +1,3 @@
 """prolijito: valida el formato de informes contra una norma, sin tocar el contenido."""
 
-__version__ = "0.3.0"
+__version__ = "0.3.1"

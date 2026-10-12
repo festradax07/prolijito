@@ -1,7 +1,20 @@
 # Cambios
 
 Formato basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/); versiones con
-[SemVer](https://semver.org/lang/es/). Para la GitHub Action, usar el tag: `festradax07/prolijito@v0.3.0`.
+[SemVer](https://semver.org/lang/es/). Para la GitHub Action, usar el tag: `festradax07/prolijito@v0.3.1`.
+
+## [0.3.1] — 2026-10-11
+
+### Cambiado
+- La GitHub Action usa la imagen publicada de su versión (`docker://ghcr.io/…:0.3.1`) en lugar de
+  construirla en cada ejecución: arranca en segundos.
+
+### Agregado
+- `scripts/smoke-test.sh [imagen]`: 12 pruebas de una imagen (descarga, perfiles, plantilla, PDFs de
+  prueba con su exit code, formatos de reporte, entrypoint de la Action). Lo usan la CI y la
+  publicación, y sirve para probar una imagen a mano.
+- La publicación verifica, ya con la imagen en GHCR, la imagen descargada y la Action tal como la
+  usan otros repos.
 
 ## [0.3.0] — 2026-10-11
 

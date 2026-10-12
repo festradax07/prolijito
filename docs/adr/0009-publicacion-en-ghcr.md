@@ -26,4 +26,7 @@ Se elige B (`.github/workflows/release.yml`):
 - El package se crea privado: hay que hacerlo público una vez desde la configuración del package
   (y un package público no puede volver a ser privado; el código ya es público, AGPL).
 - El tag se crea después de que la CI de `main` esté en verde.
-- Pendiente: que `action.yml` use la imagen publicada (`docker://…`) en lugar de construirla.
+- Desde 0.3.1, `action.yml` usa `docker://ghcr.io/festradax07/prolijito:<versión>`. La CI de `main`
+  lo reemplaza por `Dockerfile` (la imagen de esa versión todavía no existe) y el workflow de
+  publicación verifica la Action con la imagen ya publicada. Al subir la versión hay que actualizar
+  `__version__` y `action.yml` juntos: la publicación falla si no coinciden.

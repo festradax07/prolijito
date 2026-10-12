@@ -34,9 +34,9 @@ Requisito: [Docker](https://docs.docker.com/get-docker/). La imagen trae poppler
 que el resultado es el mismo en cualquier máquina.
 
 ```bash
-git clone --branch v0.3.0 https://github.com/festradax07/prolijito.git
+git clone --branch v0.3.1 https://github.com/festradax07/prolijito.git
 cd prolijito
-scripts/install.sh                # descarga la imagen 0.3.0 e instala `prolijito` y `plj` en ~/.local/bin
+scripts/install.sh                # descarga la imagen 0.3.1 e instala `prolijito` y `plj` en ~/.local/bin
 prolijito --version
 ```
 
@@ -48,10 +48,18 @@ Sin instalar nada, también se puede usar la imagen directamente:
 
 ```bash
 docker run --rm -v "$PWD:/work" -w /work -u "$(id -u):$(id -g)" \
-  ghcr.io/festradax07/prolijito:0.3.0 check informe.pdf --profile unlp-tp2
+  ghcr.io/festradax07/prolijito:0.3.1 check informe.pdf --profile unlp-tp2
 ```
 
-Etiquetas publicadas: `0.3.0` (fija), `0.3` (la última corrección de 0.3) y `latest`.
+Para comprobar que una imagen funciona (descarga, perfiles, plantilla, los PDFs de prueba con su
+exit code, los formatos de reporte y el entrypoint de la Action), desde una copia del repo:
+
+```bash
+scripts/smoke-test.sh                                       # la imagen publicada de la versión del repo
+scripts/smoke-test.sh ghcr.io/festradax07/prolijito:latest  # cualquier otra imagen
+```
+
+Etiquetas publicadas: `0.3.1` (fija), `0.3` (la última corrección de 0.3) y `latest`.
 
 El wrapper monta la **carpeta actual**: el PDF y los perfiles propios tienen que estar dentro de la
 carpeta desde la que se ejecuta.
@@ -133,7 +141,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: festradax07/prolijito@v0.3.0
+      - uses: festradax07/prolijito@v0.3.1
         with:
           profile: unlp-tp2
           path: entregas/            # un PDF o una carpeta (recursivo)
@@ -172,7 +180,7 @@ el PR: se calcula la lista con `git diff` y se pasa en `path`, un PDF por línea
             git diff --name-only --diff-filter=AMR "$BASE"...HEAD -- 'docs/entregas/*.pdf'
             echo "EOF"
           } >> "$GITHUB_OUTPUT"
-      - uses: festradax07/prolijito@v0.3.0
+      - uses: festradax07/prolijito@v0.3.1
         if: steps.pdfs.outputs.lista != ''
         with:
           profile: unlp-tp2
@@ -183,9 +191,12 @@ Para fijar qué reglas bloquean y cuáles solo avisan, se usa un perfil propio e
 el de la norma y cambie `severidades` (ver [Crear un perfil propio](#crear-un-perfil-propio)), con
 `profiles-dir` apuntando a su carpeta.
 
+La Action usa la imagen publicada de su misma versión, así que no construye nada: arranca en
+segundos.
+
 Para que un PR no se pueda mergear con errores, marcar el job como obligatorio en la protección de
 la rama (*Settings → Branches → Require status checks*). La acción no necesita permisos de
-escritura. Hoy la imagen se construye en cada ejecución (1-2 minutos).
+escritura.
 
 ## Perfiles
 

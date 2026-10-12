@@ -29,7 +29,9 @@ inputs:
 
 runs:
   using: docker
-  image: Dockerfile
+  # Imagen publicada de esta misma versión (la publica el workflow release al crear el tag).
+  # En la CI de main se reemplaza por `Dockerfile` para probar el código sin publicar.
+  image: docker://ghcr.io/festradax07/prolijito:0.3.1
   entrypoint: /usr/local/bin/prolijito-action
   args:
     - ${{ inputs.profile }}
